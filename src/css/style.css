@@ -1,0 +1,104 @@
+body {
+	background-color: #303537;
+	height: 100%;
+}
+
+.panel-login {
+  background-color: #fff;
+	padding: 10px 20px;
+	margin-top: 50px;
+}
+
+.logo {
+	width: 100%;
+	text-align: center;
+	font-size: 50px;
+	margin-bottom: 15px;
+}
+
+.logo span {
+	border: 1px solid #DBDBDB;
+	border-radius: 50%;
+	padding: 8px 9px 10px 9px;
+}
+
+.logo i {
+	background-color: #2E75B6;
+	color: #fff;
+	border-radius: 50%;
+	padding: 10px;
+}
+
+.panel-login h2 {
+	font-weight: normal;
+	margin-bottom: 20px;
+}
+
+.panel-login .btn {
+	width: 100%;
+	border-radius: 0;
+}
+
+.panel-login form {
+	margin-bottom: 10px;
+}
+
+.panel-login .btn-secondary {
+	background-color: #DADADA;
+	color: #8E857F;
+	border-color: #DADADA;
+	margin-bottom: 10px;
+}
+
+.panel-login .btn-secondary:hover {
+	background-color: #AEAEAE;
+	color: #fff;
+}
+
+.panel-login .lines {
+	text-align: center;
+	position: relative;
+}
+
+.panel-login .lines::before, .panel-login .lines::after {
+	content: '';
+	width: 45%;
+	position: absolute;
+	top: 50%;
+	border-top: 1px solid #DBDBDB;
+}
+
+.panel-login .lines::before {
+	left: 0;
+}
+
+.panel-login .lines::after {
+	right: 0;
+}
+
+.panel-login .button-facebook {
+	position: relative;
+	background-color: #115AA0;
+	border-color: #115AA0;
+}
+
+.panel-login .button-facebook:active {
+	background-color: #115AA0 !important;
+}
+
+.panel-login .button-facebook span {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 50px;
+	height: 100%;
+	padding-top: 5px;
+	background-color: #084787;
+	border-color: #084787;
+}
+
+@media (max-width: 540px) {
+	.panel-login {
+		margin-top: 0;
+	}
+}
