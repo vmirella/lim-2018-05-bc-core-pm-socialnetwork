@@ -43,7 +43,7 @@ sigInWithFacebookBtn.addEventListener('click', function() {
 		var token = result.credential.accessToken;
 		// The signed-in user info.
 		var user = result.user;
-	
+		buttonLogin.style.display ='none';
 		// ...
 	  }).catch(function(error) {
 		// Handle Errors here.
@@ -62,6 +62,7 @@ sigInWithFacebookBtn.addEventListener('click', function() {
   
 
   firebase.auth().onAuthStateChanged(function(user) {
+	  debugger
 	if (user) {
 		console.log(user);
 	}
