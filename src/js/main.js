@@ -11,7 +11,7 @@ var config = {
 
 const email = document.getElementById('email');
 const pass = document.getElementById('pass');
-const buttonLogin = document.getElementById('login');
+const buttonLogin = document.getElementById('button-login');
 const sigInWithFacebookBtn = document.getElementById('sigInWithFacebook');
 
 buttonLogin.addEventListener('click', () => {
@@ -59,14 +59,7 @@ sigInWithFacebookBtn.addEventListener('click', function() {
 
   });
 
-  
-
-  firebase.auth().onAuthStateChanged(function(user) {
-	  debugger
-	if (user) {
-		console.log(user);
-	}
-  });
+ 
 
   
   

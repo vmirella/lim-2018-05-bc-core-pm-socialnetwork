@@ -24,36 +24,85 @@
 
 </head>
 
-<body>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-xl-4 col-lg-6 col-md-8 col-sm-12 panel-login">
+<body class="body">
+
+  <div class="veen">
+    <div class="login-btn splits">
+      <p>¿Ya tienes una cuenta?</p>
+      <button class="active button">Ingresar</button>
+    </div>
+    <div class="rgstr-btn splits">
+      <p>¿A&uacute;n no tienes cuenta?</p>
+      <button class="button">Registrarse</button>
+    </div>
+    <div class="wrapper">
+      
+      <div id="login" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 panel-login">
         <div class="logo">
           <span><i class="fas fa-paw"></i></span>
         </div>
-        <h2 class="text-center">Pet Lovers</h2>
+        <h2 class="text-center">Ingresar</h2>
         <form>
           <div class="form-group">
-            <label for="email">Correo Electr&oacute;nico</label>
+            <!-- <label for="email">Correo Electr&oacute;nico</label> -->
             <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingrese su correo">
-            <small id="emailHelp" class="form-text text-muted">Nunca comparta su correo con nadie.</small>
           </div>
           <div class="form-group">
-            <label for="password">Contrase&ntilde;a</label>
+            <!-- <label for="password">Contrase&ntilde;a</label> -->
             <input type="password" class="form-control" id="pass" placeholder="Ingrese su contrase&ntilde;a">
           </div>
-          <button type="button" class="btn btn-primary" id="login">Ingresar</button>
+          <button type="button" class="btn btn-primary" id="button-login">Ingresar</button>
         </form>
-        <a href="#" class="btn btn-secondary">Registrarse</a>
         <p class="lines">O</p>
         <button type="button" id="sigInWithFacebook" class="btn btn-primary button-facebook"><span><i class="fab fa-facebook-f"></i></span>Ingresar con facebook</button>
       </div>
-    </div>
 
-  </div>
-  <!-- <script src="js/bootstrap.min.js"></script> -->
+      <div id="register" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 panel-login">
+        <div class="logo">
+          <span><i class="fas fa-paw"></i></span>
+        </div>
+        <h2 class="text-center">Registrarse</h2>
+        <form>
+          <div class="form-group">
+            <!-- <label for="email">Correo Electr&oacute;nico</label> -->
+            <input type="email" class="form-control" id="names" aria-describedby="emailHelp" placeholder="Ingrese sus nombres.">
+          </div>
+          <div class="form-group">
+            <!-- <label for="password">Contrase&ntilde;a</label> -->
+            <input type="email" class="form-control" id="lastnames" placeholder="Ingrese sus apellidos">
+            <input type="email" class="form-control" id="emailRegister" placeholder="Ingrese su correo">
+            <input type="password" class="form-control" id="passRegister" placeholder="Ingrese su contrase&ntilde;a">
+          </div>
+          <button type="button" class="btn btn-primary" id="button-register">Registrar</button>
+        </form>
+      </div>
+
+    </div>
+  </div>	
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" ></script>
   <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
   <script src="js/main.js"></script>
+
+  <script>
+    $(document).ready(function(){
+			$(".veen .rgstr-btn button").click(function(){
+				$('.veen .wrapper').addClass('move');
+				$('.body').css('background','#e0b722');
+				$(".veen .login-btn button").removeClass('active');
+				$(this).addClass('active');
+
+			});
+			$(".veen .login-btn button").click(function(){
+				$('.veen .wrapper').removeClass('move');
+				$('.body').css('background','#ff4931');
+				$(".veen .rgstr-btn button").removeClass('active');
+				$(this).addClass('active');
+			});
+		});
+  </script>
 </body>
 
 </html>
