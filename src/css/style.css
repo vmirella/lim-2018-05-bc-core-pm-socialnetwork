@@ -186,7 +186,7 @@ visibility: visible;
 visibility: hidden;
 }
 .veen .wrapper.move #register{
-	transform: translateY(-140%) translateX(0%);
+	transform: translateY(-112%) translateX(0%);
 visibility: visible;
 }
 .veen .wrapper.move #login{
