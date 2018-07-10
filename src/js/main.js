@@ -11,7 +11,7 @@ firebase.initializeApp(config);
 
 const email = document.getElementById('email');
 const pass = document.getElementById('pass');
-const buttonLogin = document.getElementById('login');
+const buttonLogin = document.getElementById('button-login');
 
 buttonLogin.addEventListener('click', () => {
 
