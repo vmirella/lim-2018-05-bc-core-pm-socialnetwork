@@ -8,6 +8,20 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBC6hYyncHRa4zRqpV1xHLE9uH_FIobzjg",
+    authDomain: "socialnetwork-d9247.firebaseapp.com",
+    databaseURL: "https://socialnetwork-d9247.firebaseio.com",
+    projectId: "socialnetwork-d9247",
+    storageBucket: "socialnetwork-d9247.appspot.com",
+    messagingSenderId: "114124006078"
+  };
+  firebase.initializeApp(config);
+</script>
+
 </head>
 
 <body>
@@ -32,7 +46,7 @@
         </form>
         <a href="#" class="btn btn-secondary">Registrarse</a>
         <p class="lines">O</p>
-        <button type="button" class="btn btn-primary button-facebook"><span><i class="fab fa-facebook-f"></i></span>Ingresar con facebook</button>
+        <button type="button" id="sigInWithFacebook" class="btn btn-primary button-facebook"><span><i class="fab fa-facebook-f"></i></span>Ingresar con facebook</button>
       </div>
     </div>
 
