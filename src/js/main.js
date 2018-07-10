@@ -1,17 +1,18 @@
 // Initialize Firebase
 var config = {
-	apiKey: "AIzaSyD25eue2yTbXemiuIxpsgNsbTq3XD4YR1Y",
-	authDomain: "api-project-235325722491.firebaseapp.com",
-	databaseURL: "https://api-project-235325722491.firebaseio.com",
-	projectId: "api-project-235325722491",
-	storageBucket: "api-project-235325722491.appspot.com",
-	messagingSenderId: "235325722491"
-};
-firebase.initializeApp(config);
+    apiKey: "AIzaSyBC6hYyncHRa4zRqpV1xHLE9uH_FIobzjg",
+    authDomain: "socialnetwork-d9247.firebaseapp.com",
+    databaseURL: "https://socialnetwork-d9247.firebaseio.com",
+    projectId: "socialnetwork-d9247",
+    storageBucket: "socialnetwork-d9247.appspot.com",
+    messagingSenderId: "114124006078"
+  };
+  firebase.initializeApp(config);
 
 const email = document.getElementById('email');
 const pass = document.getElementById('pass');
 const buttonLogin = document.getElementById('button-login');
+const sigInWithFacebookBtn = document.getElementById('sigInWithFacebook');
 
 buttonLogin.addEventListener('click', () => {
 
@@ -32,3 +33,33 @@ buttonLogin.addEventListener('click', () => {
 		});
 	
 });
+
+var provider = new firebase.auth.FacebookAuthProvider();
+
+
+sigInWithFacebookBtn.addEventListener('click', function() {
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+	 // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+		var token = result.credential.accessToken;
+		// The signed-in user info.
+		var user = result.user;
+		buttonLogin.style.display ='none';
+		// ...
+	  }).catch(function(error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		// The email of the user's account used.
+		var email = error.email;
+		// The firebase.auth.AuthCredential type that was used.
+		var credential = error.credential;
+		// ...
+	  });
+	
+
+  });
+
+ 
+
+  
+  
