@@ -18,10 +18,34 @@ const lastnames = document.getElementById('lastnames');
 const emailRegister = document.getElementById('emailRegister');
 const passRegister = document.getElementById('passRegister');
 const buttonRegister = document.getElementById('buttonRegister');
+const buttonLogOut = document.getElementById('logOut');
 
 const linkLogin = document.getElementById('linkLogin');
 
 const loginFacebook = document.getElementById('loginFacebook');
+
+let provider = new firebase.auth.FacebookAuthProvider();
+
+loginFacebook.addEventListener('click', () => {
+	firebase.auth().signInWithPopup(provider).then(function(result) {
+		// This gives you a Facebook Access Token. You can use it to access the Facebook API.
+		   const token = result.credential.accessToken;
+		   // The signed-in user info.
+		   const user = result.user;
+		   location.href = 'home.html';
+		   // ...
+		 }).catch(function(error) {
+		   // Handle Errors here.
+		   const errorCode = error.code;
+		   const errorMessage = error.message;
+		   // The email of the user's account used.
+		   const email = error.email;
+		   // The firebase.auth.AuthCredential type that was used.
+		   const credential = error.credential;
+		   // ...
+		 });
+	   
+});
 
 buttonLogin.addEventListener('click', () => {
 	firebase.auth().signInWithEmailAndPassword(email.value, pass.value)
@@ -63,9 +87,3 @@ buttonRegister.addEventListener('click', () => {
 		});	
 });
 
-loginFacebook.addEventListener('click', () => {
-	//Pegar codigo de facebook
-	//guardar en localStorage el email
-	//Redireccionar a home
-
-});
