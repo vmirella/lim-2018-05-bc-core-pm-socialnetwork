@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Pet Lovers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+
+
+</head>
+
+<body class="panel-login">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 content panel-login">
+        <button type="button" id ="logOut" class="btn btn-primary" id="button-register">Log out</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" ></script>
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <script src="js/main.js"></script>
+  
+    <script>
+      $(document).ready(function(){
+              $(".veen .rgstr-btn button").click(function(){
+                  $('.veen .wrapper').addClass('move');
+                  $('.body').css('background','#e0b722');
+                  $(".veen .login-btn button").removeClass('active');
+                  $(this).addClass('active');
+  
+              });
+              $(".veen .login-btn button").click(function(){
+                  $('.veen .wrapper').removeClass('move');
+                  $('.body').css('background','#ff4931');
+                  $(".veen .rgstr-btn button").removeClass('active');
+                  $(this).addClass('active');
+              });
+          });
+    </script>
+
+</body>
+
+</html>
