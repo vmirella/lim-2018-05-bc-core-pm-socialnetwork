@@ -1,5 +1,5 @@
 body {
-	background-color: #303537;
+	/*background-color: #303537;*/
 	height: 100%;
 }
 
@@ -23,7 +23,7 @@ body {
 }
 
 .logo i {
-	background-color: #2E75B6;
+	background-color: #009E66;
 	color: #fff;
 	border-radius: 50%;
 	padding: 10px;
@@ -44,13 +44,29 @@ body {
 	text-align: left;
 }
 
+.panel-login .btn-success {
+	background-color: #009E66;
+	color: #FFF;
+	border-color: #009E66;
+	margin-bottom: 10px;
+}
+
+.panel-login .btn-secondary:blur{
+	background-color: #35CD97;
+	color: #fff;
+}
+
+.panel-login .btn-secondary:hover {
+	background-color: #35CD97;
+	color: #fff;
+}
+
 .panel-login .btn-secondary {
 	background-color: #DADADA;
 	color: #8E857F;
 	border-color: #DADADA;
 	margin-bottom: 10px;
 }
-
 .panel-login .btn-secondary:hover {
 	background-color: #AEAEAE;
 	color: #fff;
@@ -105,7 +121,7 @@ body {
 }
 /* ----------------------movimiento del formularios---------------------- */
 .body{
-	background: #ff4931;
+	background: #009E66;
 	transition: all .5s;
 	padding: 1px;
 }
@@ -143,8 +159,8 @@ body {
 	background: #ff4931;
 }
 .veen .move button.dark{
-	border-color: #e0b722;
-	background: #e0b722;
+	border-color: #009E66;
+	background: #009E66;
 }
 .veen .splits p{
 	font-size: 18px;
@@ -215,15 +231,18 @@ visibility: hidden;
 }
 .veen .wrapper input:focus{
 	outline: none;
-	border-color: #ff4931;
+	border-color: #009E66;
 }
 .veen > .wrapper.move{
 	left: 45%;
 }
 .veen > .wrapper.move input:focus{
-	border-color: #e0b722;
+	border-color: #009E66;
 }
 @media (max-width: 767px){
+	.veen .button{
+		background: #505050;
+	}
 	.veen{
 		padding: 5px;
 		margin: 0;
@@ -257,10 +276,10 @@ visibility: hidden;
 	}
 	.splits button.active{
 		opacity: 1;
-		background: #ff4931;
+		background: #009E66;
 	}
 	.splits.rgstr-btn button.active{
-		background: #e0b722;
+		background: #35CD97;
 	}
 	.splits p{
 		display: none;
