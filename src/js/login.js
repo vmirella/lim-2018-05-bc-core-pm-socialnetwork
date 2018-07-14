@@ -24,8 +24,10 @@ const linkLogin = document.getElementById('linkLogin');
 
 const loginFacebook = document.getElementById('loginFacebook');
 
+
 let provider = new firebase.auth.FacebookAuthProvider();
 
+window.addEventListener('load', function() {
 loginFacebook.addEventListener('click', () => {
 	firebase.auth().signInWithPopup(provider).then(function(result) {
 		// This gives you a Facebook Access Token. You can use it to access the Facebook API.
@@ -43,9 +45,24 @@ loginFacebook.addEventListener('click', () => {
 		   // The firebase.auth.AuthCredential type that was used.
 		   const credential = error.credential;
 		   // ...
-		 });
-	   
+		 });   
 });
+
+
+buttonLogOut.addEventListener('click',()=>{
+	
+	firebase.auth().signOut().then(function() {
+		// Sign-out successful.
+		
+		location.href = 'index.html';
+	  }).catch(function(error) {
+		// An error happened.
+	 
+	});
+})
+});
+
+
 
 buttonLogin.addEventListener('click', () => {
 	firebase.auth().signInWithEmailAndPassword(email.value, pass.value)
