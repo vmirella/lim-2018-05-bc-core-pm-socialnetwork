@@ -17,6 +17,6 @@ buttonLogOut.addEventListener('click',()=>{
 
 window.onload = () =>{
 	firebase.auth().onAuthStateChanged(function(user) {
-		if (! user) {location.href = 'index.html';} 
+		if (!user) {location.href = 'index.html';} 
 	  });
 }
