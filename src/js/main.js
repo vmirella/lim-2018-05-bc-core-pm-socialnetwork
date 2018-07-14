@@ -1,0 +1,22 @@
+// Initialize Firebase
+let config = {
+	apiKey: "AIzaSyCrbUbq0oD49Yzk_eryDiJoseqOC6vUIcg",
+	authDomain: "pet-health-social-network.firebaseapp.com",
+	databaseURL: "https://pet-health-social-network.firebaseio.com",
+	projectId: "pet-health-social-network",
+	storageBucket: "pet-health-social-network.appspot.com",
+	messagingSenderId: "838633128523"
+};
+firebase.initializeApp(config);
+
+const buttonLogOut = document.getElementById('logOut');
+
+buttonLogOut.addEventListener('click',()=>{
+    firebase.auth().signOut();
+})
+
+window.onload = () =>{
+	firebase.auth().onAuthStateChanged(function(user) {
+		if (! user) {location.href = 'index.html';} 
+	  });
+}
