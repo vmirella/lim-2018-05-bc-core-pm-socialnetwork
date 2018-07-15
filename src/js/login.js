@@ -10,7 +10,7 @@ let config = {
 firebase.initializeApp(config);
 
 const email = document.getElementById('email');
-const pass = document.getElementById('pass');
+const password = document.getElementById('password');
 const buttonLogin = document.getElementById('button-login');
 const names = document.getElementById('names');
 const lastnames = document.getElementById('lastnames');
@@ -25,15 +25,13 @@ const loginFacebook = document.getElementById('loginFacebook');
 
 
 buttonLogin.addEventListener('click', () => {
-	firebase.auth().signInWithEmailAndPassword(email.value, pass.value)
+	firebase.auth().signInWithEmailAndPassword(email.value, password.value)
 		.then((result) => {
-			alert('Bienvenido');
 			localStorage.setItem('email', email.value);
 			location.href = 'home.html';
 		})
 		.catch((error) => {
 			let errorCode = error.code;
-			let errorMessage = error.message;
 			if (errorCode === 'auth/wrong-password') {
 				alert('Contraseña incorrecta.');
 			} 
@@ -46,12 +44,21 @@ buttonLogin.addEventListener('click', () => {
 buttonRegister.addEventListener('click', () => {
 	firebase.auth().createUserWithEmailAndPassword(emailRegister.value, passRegister.value)
 		.then((result) => {
-			alert('El usuario ha sido registrado, Ahora ya puede ingresar');
+			firebase.auth().onAuthStateChanged((user) => {
+				if (user) {	
+					const registeredUser = registerUserProfile(user.uid, names.value, lastnames.value, emailRegister.value);
+					if(registeredUser == 1) {
+						alert('El usuario ha sido registrado, Ahora ya puede ingresar');
+					}
+					else {
+						alert('El usuario no se ha podido registrar');
+					}
+				} 
+			});
 			linkLogin.click();
 		})
 		.catch((error) => {
 			let errorCode = error.code;
-			let errorMessage = error.message;
 			if (errorCode === 'auth/email-already-in-use') {
 				alert('El correo ya se encuentra registrado.');
 			} 
@@ -87,9 +94,9 @@ loginFacebook.addEventListener('click', () => {
 	   
 });
 
-window.onload = () =>{
+/* window.onload = () =>{
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {	location.href = 'home.html';} 
 	  });
-}
+} */
 

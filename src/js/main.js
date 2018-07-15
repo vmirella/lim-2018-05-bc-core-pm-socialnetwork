@@ -12,11 +12,15 @@ firebase.initializeApp(config);
 const buttonLogOut = document.getElementById('logOut');
 
 buttonLogOut.addEventListener('click',()=>{
-    firebase.auth().signOut();
+  firebase.auth().signOut();
 })
 
 window.onload = () =>{
+	const message = document.getElementById('message');
+	const emailMessage = localStorage.getItem('email');
+	message.innerHTML = emailMessage;
+	console.log(emailMessage);
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (!user) {location.href = 'index.html';} 
-	  });
+	});
 }
