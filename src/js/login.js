@@ -20,8 +20,7 @@ const buttonRegister = document.getElementById('buttonRegister');
 const buttonLogOut = document.getElementById('logOut');
 const linkLogin = document.getElementById('linkLogin');
 const loginFacebook = document.getElementById('loginFacebook');
-
-
+const loginGoogle = document.getElementById('loginGoogle');
 
 
 buttonLogin.addEventListener('click', () => {
@@ -72,31 +71,48 @@ buttonRegister.addEventListener('click', () => {
 });
 
 
-let provider = new firebase.auth.FacebookAuthProvider();
+let providerFacebook = new firebase.auth.FacebookAuthProvider();
 
 loginFacebook.addEventListener('click', () => {
-	firebase.auth().signInWithPopup(provider).then(function(result) {
-		// This gives you a Facebook Access Token. You can use it to access the Facebook API.
+	firebase.auth().signInWithPopup(providerFacebook).then(function(result) {
 		   const token = result.credential.accessToken;
-		   // The signed-in user info.
 		   const user = result.user;
-		   // ...
+
 		 }).catch(function(error) {
-		   // Handle Errors here.
+		   
 		   const errorCode = error.code;
 		   const errorMessage = error.message;
-		   // The email of the user's account used.
 		   const email = error.email;
-		   // The firebase.auth.AuthCredential type that was used.
 		   const credential = error.credential;
-		   // ...
+		   alert(errorCode,errorMessage,email,credential);		   
 		 });
 	   
 });
 
-/* window.onload = () =>{
+
+let providerGoogle= new firebase.auth.GoogleAuthProvider();
+
+loginGoogle.addEventListener('click', () => {
+	firebase.auth().signInWithPopup(providerGoogle).then(function(result) {
+		   const token = result.credential.accessToken;
+		   const user = result.user;
+
+		 }).catch(function(error) {
+		   
+		   const errorCode = error.code;
+		   const errorMessage = error.message;
+		   const email = error.email;
+		   const credential = error.credential;
+		   alert(errorCode,errorMessage,email,credential);		   
+		 });
+	   
+});
+
+
+
+window.onload = () =>{
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {	location.href = 'home.html';} 
 	  });
-} */
+}
 
