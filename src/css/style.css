@@ -160,7 +160,7 @@ body {
 }
 .veen .move button.dark{
 	border-color: #009E66;
-	background: #009E66;
+	background: #35CD97;
 }
 .veen .splits p{
 	font-size: 18px;
@@ -276,7 +276,7 @@ visibility: hidden;
 	}
 	.splits button.active{
 		opacity: 1;
-		background: #009E66;
+		background: #35CD97;
 	}
 	.splits.rgstr-btn button.active{
 		background: #35CD97;
