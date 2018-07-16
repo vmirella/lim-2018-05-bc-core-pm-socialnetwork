@@ -45,8 +45,17 @@ buttonRegister.addEventListener('click', () => {
 		.then((result) => {
 			firebase.auth().onAuthStateChanged((user) => {
 				if (user) {	
-					const registeredUser = registerUserProfile(user.uid, names.value, lastnames.value, emailRegister.value);
-					if(registeredUser == 1) {
+					let dataUser = {
+						id: null,
+						userName: '',
+						email: '',
+						picture: ''
+					}
+					dataUser.id = user.id;
+					dataUser.userName = names.value + ' '+ lastnames.value;
+					dataUser.email = emailRegister.value;
+					const registeredUser = registerUserProfile(dataUser);
+					if(typeOf(registeredUser) == Object) {
 						alert('El usuario ha sido registrado, Ahora ya puede ingresar');
 					}
 					else {
