@@ -22,7 +22,6 @@ const linkLogin = document.getElementById('linkLogin');
 const loginFacebook = document.getElementById('loginFacebook');
 const loginGoogle = document.getElementById('loginGoogle');
 
-
 buttonLogin.addEventListener('click', () => {
 	firebase.auth().signInWithEmailAndPassword(email.value, password.value)
 		.then((result) => {
@@ -33,7 +32,7 @@ buttonLogin.addEventListener('click', () => {
 			let errorCode = error.code;
 			if (errorCode === 'auth/wrong-password') {
 				alert('Contraseña incorrecta.');
-			} 
+			}
 			else {
 				alert('Usuario o contraseña incorrecto');
 			}
@@ -44,15 +43,17 @@ buttonRegister.addEventListener('click', () => {
 	firebase.auth().createUserWithEmailAndPassword(emailRegister.value, passRegister.value)
 		.then((result) => {
 			firebase.auth().onAuthStateChanged((user) => {
-				if (user) {	
+				if (user) {
 					const registeredUser = registerUserProfile(user.uid, names.value, lastnames.value, emailRegister.value);
-					if(registeredUser == 1) {
+					if (registeredUser == 1) {
 						alert('El usuario ha sido registrado, Ahora ya puede ingresar');
 					}
 					else {
 						alert('El usuario no se ha podido registrar');
 					}
-				} 
+
+					console.log(registeredUser)
+				}
 			});
 			linkLogin.click();
 		})
@@ -60,59 +61,56 @@ buttonRegister.addEventListener('click', () => {
 			let errorCode = error.code;
 			if (errorCode === 'auth/email-already-in-use') {
 				alert('El correo ya se encuentra registrado.');
-			} 
+			}
 			else if (errorCode === 'auth/weak-password') {
 				alert('La contraseña es demasiado debil.');
 			}
 			else if (errorCode === 'auth/invalid-email') {
 				alert('El correo es invalido.');
 			}
-		});	
+		});
 });
-
 
 let providerFacebook = new firebase.auth.FacebookAuthProvider();
 
 loginFacebook.addEventListener('click', () => {
-	firebase.auth().signInWithPopup(providerFacebook).then(function(result) {
-		   const token = result.credential.accessToken;
-		   const user = result.user;
+	firebase.auth().signInWithPopup(providerFacebook).then(function (result) {
+		const token = result.credential.accessToken;
+		const user = result.user;
 
-		 }).catch(function(error) {
-		   
-		   const errorCode = error.code;
-		   const errorMessage = error.message;
-		   const email = error.email;
-		   const credential = error.credential;
-		   alert(errorCode,errorMessage,email,credential);		   
-		 });
-	   
+	}).catch(function (error) {
+
+		const errorCode = error.code;
+		const errorMessage = error.message;
+		const email = error.email;
+		const credential = error.credential;
+		alert(errorCode, errorMessage, email, credential);
+	});
+
 });
 
-
-let providerGoogle= new firebase.auth.GoogleAuthProvider();
+let providerGoogle = new firebase.auth.GoogleAuthProvider();
 
 loginGoogle.addEventListener('click', () => {
-	firebase.auth().signInWithPopup(providerGoogle).then(function(result) {
-		   const token = result.credential.accessToken;
-		   const user = result.user;
+	firebase.auth().signInWithPopup(providerGoogle).then(function (result) {
+		const token = result.credential.accessToken;
+		const user = result.user;
 
-		 }).catch(function(error) {
-		   
-		   const errorCode = error.code;
-		   const errorMessage = error.message;
-		   const email = error.email;
-		   const credential = error.credential;
-		   alert(errorCode,errorMessage,email,credential);		   
-		 });
-	   
+		console.log(user)
+	}).catch(function (error) {
+
+		const errorCode = error.code;
+		const errorMessage = error.message;
+		const email = error.email;
+		const credential = error.credential;
+		alert(errorCode, errorMessage, email, credential);
+	});
+
 });
 
-
-
-window.onload = () =>{
-	firebase.auth().onAuthStateChanged(function(user) {
-		if (user) {	location.href = 'home.html';} 
-	  });
+window.onload = () => {
+	firebase.auth().onAuthStateChanged(function (user) {
+		if (user) { location.href = 'home.html'; }
+	});
 }
 
