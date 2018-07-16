@@ -11,3 +11,26 @@ window.registerUserProfile = (userId, names, lastnames, email, picture = '') => 
 
 	return 1;
 }
+
+window.createPost = () => {
+	//Generar idPost
+	firebase.database().ref('posts/' + userId + '/' + idPost).set({
+		title: title,
+		date: date,
+		image: image,
+		text: text,
+		category: category,// salud,alimentacion, adopcion, entretenimiento
+		state: state,// publico o privado
+
+	}, (error) => {
+		return 0;
+	});
+}
+
+window.editPost = () => {
+	
+}
+
+window.deletePost = () => {
+	
+}
