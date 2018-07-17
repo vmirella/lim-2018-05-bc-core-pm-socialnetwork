@@ -1,12 +1,16 @@
+const dataRegisterUser = {
+	id: null,
+	userName: '',
+	email: '',
+	picture: ''
+}
 //Esta funcion guarda en la tabla users los datos del usuario
 window.registerUserProfile = (dataUser) => {
-	let dataRegisterUser = {
-		id: null,
-		userName: '',
-		email: '',
-		picture: ''
-	}
-	firebase.database().ref('users/' + dataUser.userId).set({
+	dataRegisterUser.id = dataUser.id;
+	dataRegisterUser.userName = dataUser.userName;
+	dataRegisterUser.email = dataUser.email;
+	dataRegisterUser.picture = dataUser.picture;
+	firebase.database().ref('users/' + dataUser.id).set({
 		username: dataUser.username,
 		email: dataUser.email,
 		picture: dataUser.picture
@@ -14,7 +18,7 @@ window.registerUserProfile = (dataUser) => {
 		return 0;
 	});
 
-	return ;
+	return dataRegisterUser;
 }
 
 window.createPost = () => {

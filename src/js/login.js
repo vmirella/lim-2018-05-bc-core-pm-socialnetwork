@@ -51,7 +51,7 @@ buttonRegister.addEventListener('click', () => {
 						email: '',
 						picture: ''
 					}
-					dataUser.id = user.id;
+					dataUser.id = user.uid;
 					dataUser.userName = names.value + ' '+ lastnames.value;
 					dataUser.email = emailRegister.value;
 					const registeredUser = registerUserProfile(dataUser);
