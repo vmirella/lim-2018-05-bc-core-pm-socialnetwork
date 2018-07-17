@@ -11,7 +11,7 @@ window.registerUserProfile = (dataUser) => {
 	dataRegisterUser.email = dataUser.email;
 	dataRegisterUser.picture = dataUser.picture;
 	firebase.database().ref('users/' + dataUser.id).set({
-		username: dataUser.username,
+		username: dataUser.userName,
 		email: dataUser.email,
 		picture: dataUser.picture
 	}, (error) => {
