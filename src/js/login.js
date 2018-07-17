@@ -47,24 +47,24 @@ buttonRegister.addEventListener('click', () => {
 				if (user) {	
 					let dataUser = {
 						id: null,
-						userName: '',
+						username: '',
 						email: '',
 						picture: ''
 					}
 					dataUser.id = user.uid;
-					dataUser.userName = names.value + ' '+ lastnames.value;
+					dataUser.username = names.value + ' '+ lastnames.value;
 					dataUser.email = emailRegister.value;
 					const registeredUser = registerUserProfile(dataUser);
 					if(typeOf(registeredUser) == Object) {
 						alert('El usuario ha sido registrado, Ahora ya puede ingresar');
+						linkLogin.click();
 					}
 					else {
 						alert('El usuario no se ha podido registrar');
 					}
 				} 
-			});
-			linkLogin.click();
-		})
+			})
+		})		
 		.catch((error) => {
 			let errorCode = error.code;
 			if (errorCode === 'auth/email-already-in-use') {
@@ -117,10 +117,10 @@ loginGoogle.addEventListener('click', () => {
 	   
 });
 
-/*
+
 window.onload = () =>{
-	firebase.auth().onAuthStateChanged(function(user) {
+	firebase.auth().onAuthStateChanged((user) => {
 		if (user) {	location.href = 'home.html';} 
 	  });
 }
-*/
+
