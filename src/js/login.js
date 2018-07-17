@@ -54,7 +54,8 @@ buttonRegister.addEventListener('click', () => {
 					dataUser.username = names.value + ' '+ lastnames.value;
 					dataUser.email = emailRegister.value;
 					const registeredUser = registerUserProfile(dataUser);
-					if(typeOf(registeredUser) == Object) {
+					console.log(typeof(registeredUser));
+					if(typeof(registeredUser) == object) {
 						alert('El usuario ha sido registrado, Ahora ya puede ingresar');
 						linkLogin.click();
 					}
@@ -120,8 +121,8 @@ loginGoogle.addEventListener('click', () => {
 	});
 });
 
-window.onload = () =>{
+/* window.onload = () =>{
 	firebase.auth().onAuthStateChanged((user) => {
 		if (user) {	location.href = 'home.html';} 
 	  });
-}
+} */
