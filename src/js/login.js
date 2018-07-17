@@ -71,12 +71,37 @@ buttonRegister.addEventListener('click', () => {
 		});
 });
 
+<<<<<<< HEAD
 let providerFacebook = new firebase.auth.FacebookAuthProvider();
 
 loginFacebook.addEventListener('click', () => {
 	firebase.auth().signInWithPopup(providerFacebook).then(function (result) {
 		const token = result.credential.accessToken;
 		const user = result.user;
+=======
+
+
+let providerFacebook = new firebase.auth.FacebookAuthProvider();
+
+loginFacebook.addEventListener('click', () => {
+	firebase.auth().signInWithPopup(providerFacebook).then(function(result) {
+		   const token = result.credential.accessToken;
+		   const user = result.user;
+		  // location.href = 'home.html';
+
+		   createPost(user.uid, user.displayName, 'picture', 'title', 'body');
+
+		 }).catch(function(error) {
+		   
+		   const errorCode = error.code;
+		   const errorMessage = error.message;
+		   const email = error.email;
+		   const credential = error.credential;
+		   alert(errorCode,errorMessage,email,credential);		   
+		 });
+	   
+});
+>>>>>>> 2641965a04d7d2a7364012b75f8e00b045aadbeb
 
 	}).catch(function (error) {
 
@@ -87,6 +112,26 @@ loginFacebook.addEventListener('click', () => {
 		alert(errorCode, errorMessage, email, credential);
 	});
 
+<<<<<<< HEAD
+=======
+loginGoogle.addEventListener('click', () => {
+	firebase.auth().signInWithPopup(providerGoogle).then(function(result) {
+		   const token = result.credential.accessToken;
+		   const user = result.user;
+
+
+		   location.href = 'home.html';
+
+		 }).catch(function(error) {
+		   
+		   const errorCode = error.code;
+		   const errorMessage = error.message;
+		   const email = error.email;
+		   const credential = error.credential;
+		   alert(errorCode,errorMessage,email,credential);		   
+		 });
+	   
+>>>>>>> 2641965a04d7d2a7364012b75f8e00b045aadbeb
 });
 
 let providerGoogle = new firebase.auth.GoogleAuthProvider();
@@ -106,6 +151,7 @@ loginGoogle.addEventListener('click', () => {
 		alert(errorCode, errorMessage, email, credential);
 	});
 
+<<<<<<< HEAD
 });
 
 window.onload = () => {
@@ -114,3 +160,5 @@ window.onload = () => {
 	});
 }
 
+=======
+>>>>>>> 2641965a04d7d2a7364012b75f8e00b045aadbeb

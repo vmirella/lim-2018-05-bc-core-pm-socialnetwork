@@ -13,14 +13,18 @@ const buttonLogOut = document.getElementById('logOut');
 
 buttonLogOut.addEventListener('click',()=>{
   firebase.auth().signOut();
+  location.href = 'index.html';
 })
 
 window.onload = () =>{
 	const message = document.getElementById('message');
 	const emailMessage = localStorage.getItem('email');
+<<<<<<< HEAD
 	message.innerHTML = emailMessage;
 
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (!user) {location.href = 'index.html';} 
 	});
+=======
+>>>>>>> 2641965a04d7d2a7364012b75f8e00b045aadbeb
 }
