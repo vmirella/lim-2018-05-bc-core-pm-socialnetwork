@@ -71,14 +71,6 @@ buttonRegister.addEventListener('click', () => {
 		});
 });
 
-<<<<<<< HEAD
-let providerFacebook = new firebase.auth.FacebookAuthProvider();
-
-loginFacebook.addEventListener('click', () => {
-	firebase.auth().signInWithPopup(providerFacebook).then(function (result) {
-		const token = result.credential.accessToken;
-		const user = result.user;
-=======
 
 
 let providerFacebook = new firebase.auth.FacebookAuthProvider();
@@ -87,9 +79,9 @@ loginFacebook.addEventListener('click', () => {
 	firebase.auth().signInWithPopup(providerFacebook).then(function(result) {
 		   const token = result.credential.accessToken;
 		   const user = result.user;
-		  // location.href = 'home.html';
+		   const registeredUser = registerUserProfile(user.uid, names.value, lastnames.value, emailRegister.value);
 
-		   createPost(user.uid, user.displayName, 'picture', 'title', 'body');
+		  location.href = 'home.html';
 
 		 }).catch(function(error) {
 		   
@@ -101,47 +93,16 @@ loginFacebook.addEventListener('click', () => {
 		 });
 	   
 });
->>>>>>> 2641965a04d7d2a7364012b75f8e00b045aadbeb
 
-	}).catch(function (error) {
-
-		const errorCode = error.code;
-		const errorMessage = error.message;
-		const email = error.email;
-		const credential = error.credential;
-		alert(errorCode, errorMessage, email, credential);
-	});
-
-<<<<<<< HEAD
-=======
-loginGoogle.addEventListener('click', () => {
-	firebase.auth().signInWithPopup(providerGoogle).then(function(result) {
-		   const token = result.credential.accessToken;
-		   const user = result.user;
-
-
-		   location.href = 'home.html';
-
-		 }).catch(function(error) {
-		   
-		   const errorCode = error.code;
-		   const errorMessage = error.message;
-		   const email = error.email;
-		   const credential = error.credential;
-		   alert(errorCode,errorMessage,email,credential);		   
-		 });
-	   
->>>>>>> 2641965a04d7d2a7364012b75f8e00b045aadbeb
-});
-
+	
 let providerGoogle = new firebase.auth.GoogleAuthProvider();
 
 loginGoogle.addEventListener('click', () => {
 	firebase.auth().signInWithPopup(providerGoogle).then(function (result) {
 		const token = result.credential.accessToken;
 		const user = result.user;
+		location.href = 'home.html';
 
-		console.log(user)
 	}).catch(function (error) {
 
 		const errorCode = error.code;
@@ -150,15 +111,4 @@ loginGoogle.addEventListener('click', () => {
 		const credential = error.credential;
 		alert(errorCode, errorMessage, email, credential);
 	});
-
-<<<<<<< HEAD
-});
-
-window.onload = () => {
-	firebase.auth().onAuthStateChanged(function (user) {
-		if (user) { location.href = 'home.html'; }
-	});
-}
-
-=======
->>>>>>> 2641965a04d7d2a7364012b75f8e00b045aadbeb
+})
