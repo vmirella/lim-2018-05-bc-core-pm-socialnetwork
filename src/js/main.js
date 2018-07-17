@@ -20,16 +20,13 @@ const inputContent = document.getElementById('inputContent');
 const btnAddPost = document.getElementById('addPost');
 const btnEditPost = document.getElementById('editPost');
 const btnDeletePost = document.getElementById('deletePost');
+const showPost = document.getElementById('showPost');
 
 buttonLogOut.addEventListener('click', () => {
 	firebase.auth().signOut();
 	location.href = 'index.html';
 })
-/*window.onload = () =>{
-	const message = document.getElementById('message');
-	const emailMessage = localStorage.getItem('email');
 
-}*/
 
 // creando objeto que contiene la data del post
 
@@ -49,13 +46,38 @@ let postData = {
 
 };
 
+let listPostUser = {};
+let listPostGeneral = {};
+
 //obteniendo el id del usuario actual
+
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {
 		postData.uid = user.uid;
+
+		const prueba = firebase.database().ref('/user-posts/' + postData.uid).once('value').then(function(value) {
+			//console.log(value.val())
+			listPostUser = value.val();
+		  });
+		firebase.database().ref('/user-posts/').once('value').then(function(value) {
+			//console.log(value.val())
+			listPostGeneral = value.val();
+		  });
+
 	}
 	return user
 });
+
+
+window.onload = () =>{
+	
+//Mostrar en la portada del 
+
+	console.log(listPostUser)
+	console.log(listPostGeneral)
+
+}
+
 
 btnAddPost.addEventListener('click', () => {
 
@@ -69,8 +91,14 @@ btnAddPost.addEventListener('click', () => {
 	postData.likes = 0,
 	postData.comentary = {};
 
+
 	createPost(postData);
 	alert('se registró post')
+
+	console.log(listPostUser)
+
+	
+	showPost.innerHTML= `estado ${postData.state}<br> Title ${postData.title} <br> category ${postData.category} `
 
 	//Cambiar a muro principal
 })
@@ -88,6 +116,7 @@ btnEditPost.addEventListener('click', () =>{
 
 	editPost('-LHaoe1ZpLw0Bd_dxTTg', postData);
 	alert('se editó post')
+	
 
 })
 
@@ -96,11 +125,3 @@ btnDeletePost.addEventListener('click', () =>{
 	alert('se eliminó post')	
 })
 
-/*
-firebase.firestore().collection("users").get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-		// doc.data() is never undefined for query doc snapshots
-		console.log(doc)
-        console.log(doc.id, " => ", doc.data());
-    });
-});*/
