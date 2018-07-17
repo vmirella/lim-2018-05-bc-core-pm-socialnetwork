@@ -53,9 +53,9 @@ buttonRegister.addEventListener('click', () => {
 					dataUser.id = user.uid;
 					dataUser.username = names.value + ' '+ lastnames.value;
 					dataUser.email = emailRegister.value;
-					const registeredUser = registerUserProfile(dataUser);
-					console.log(typeof(registeredUser));
-					if(typeof(registeredUser) == object) {
+					const registeredUserWith = registerUserProfile(dataUser);
+					console.log(typeof(registeredUserWith));
+					if(typeof(registeredUserWith) == 'object') {
 						alert('El usuario ha sido registrado, Ahora ya puede ingresar');
 						linkLogin.click();
 					}
