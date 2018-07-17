@@ -21,25 +21,36 @@ window.registerUserProfile = (dataUser) => {
 	return dataRegisterUser;
 }
 
-window.createPost = () => {
-	//Generar idPost
-	firebase.database().ref('posts/' + userId + '/' + idPost).set({
-		title: title,
-		date: date,
-		image: image,
-		text: text,
-		category: category,// salud,alimentacion, adopcion, entretenimiento
-		state: state,// publico o privado
+//Esta funcion permite relacionar al usuario con sus posts
 
-	}, (error) => {
-		return 0;
-	});
+window.createPost = (postData) => {
+
+	// Generar un id para la publicación.
+	const newPostKey = firebase.database().ref().child('posts').push().key;
+
+	// Registrar en el objeto posts y user-post la nueva publicación
+	const updates = {};
+	updates['/posts/' + newPostKey] = postData;
+	updates['/user-posts/' + postData.uid + '/' + newPostKey] = postData;
+
+	return firebase.database().ref().update(updates);
+
 }
+//Esta funcion permite editar posts
+window.editPost = (postId, postData) => {
 
-window.editPost = () => {
-	
+	const updates = {};
+	updates['/posts/' + postId] = postData;
+	updates['/user-posts/' + postData.uid + '/' + postId] = postData;
+
+	return firebase.database().ref().update(updates);
+
 }
+//Esta funcion permite eliminar posts
 
-window.deletePost = () => {
-	
+window.deletePost = (postId, uid) => {
+
+	firebase.database().ref('/posts/').child(postId).remove();
+	firebase.database().ref('/user-posts/' + uid + '/').child(postId).remove();
+
 }

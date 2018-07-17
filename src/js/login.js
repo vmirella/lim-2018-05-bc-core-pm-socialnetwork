@@ -22,7 +22,6 @@ const linkLogin = document.getElementById('linkLogin');
 const loginFacebook = document.getElementById('loginFacebook');
 const loginGoogle = document.getElementById('loginGoogle');
 
-
 buttonLogin.addEventListener('click', () => {
 	firebase.auth().signInWithEmailAndPassword(email.value, password.value)
 		.then((result) => {
@@ -33,7 +32,7 @@ buttonLogin.addEventListener('click', () => {
 			let errorCode = error.code;
 			if (errorCode === 'auth/wrong-password') {
 				alert('Contraseña incorrecta.');
-			} 
+			}
 			else {
 				alert('Usuario o contraseña incorrecto');
 			}
@@ -69,15 +68,16 @@ buttonRegister.addEventListener('click', () => {
 			let errorCode = error.code;
 			if (errorCode === 'auth/email-already-in-use') {
 				alert('El correo ya se encuentra registrado.');
-			} 
+			}
 			else if (errorCode === 'auth/weak-password') {
 				alert('La contraseña es demasiado debil.');
 			}
 			else if (errorCode === 'auth/invalid-email') {
 				alert('El correo es invalido.');
 			}
-		});	
+		});
 });
+
 
 
 let providerFacebook = new firebase.auth.FacebookAuthProvider();
@@ -86,6 +86,9 @@ loginFacebook.addEventListener('click', () => {
 	firebase.auth().signInWithPopup(providerFacebook).then(function(result) {
 		   const token = result.credential.accessToken;
 		   const user = result.user;
+		   const registeredUser = registerUserProfile(user.uid, names.value, lastnames.value, emailRegister.value);
+
+		  location.href = 'home.html';
 
 		 }).catch(function(error) {
 		   
@@ -98,29 +101,27 @@ loginFacebook.addEventListener('click', () => {
 	   
 });
 
-
-let providerGoogle= new firebase.auth.GoogleAuthProvider();
+	
+let providerGoogle = new firebase.auth.GoogleAuthProvider();
 
 loginGoogle.addEventListener('click', () => {
-	firebase.auth().signInWithPopup(providerGoogle).then(function(result) {
-		   const token = result.credential.accessToken;
-		   const user = result.user;
+	firebase.auth().signInWithPopup(providerGoogle).then(function (result) {
+		const token = result.credential.accessToken;
+		const user = result.user;
+		location.href = 'home.html';
 
-		 }).catch(function(error) {
-		   
-		   const errorCode = error.code;
-		   const errorMessage = error.message;
-		   const email = error.email;
-		   const credential = error.credential;
-		   alert(errorCode,errorMessage,email,credential);		   
-		 });
-	   
+	}).catch(function (error) {
+
+		const errorCode = error.code;
+		const errorMessage = error.message;
+		const email = error.email;
+		const credential = error.credential;
+		alert(errorCode, errorMessage, email, credential);
+	});
 });
-
 
 window.onload = () =>{
 	firebase.auth().onAuthStateChanged((user) => {
 		if (user) {	location.href = 'home.html';} 
 	  });
 }
-
