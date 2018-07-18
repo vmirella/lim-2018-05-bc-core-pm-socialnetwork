@@ -22,6 +22,7 @@ window.registerUserProfile = (dataUser) => {
 
 	return dataRegisterUser;
 }
+//module.exports = registerUserProfile; // //jest export
 
 //Esta funcion permite relacionar al usuario con sus posts
 

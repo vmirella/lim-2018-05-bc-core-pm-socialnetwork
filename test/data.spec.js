@@ -20,6 +20,31 @@ describe('data', () => {
   it('debería exponer función editPost en objeto global', () => {
     assert.isFunction(editPost);
   });
+<<<<<<< HEAD
+=======
+
+  it('debería exponer función deletePost en objeto global', () => {
+    assert.isFunction(deletePost);
+  });
+
+  describe('registerUserProfile(dataUser)', () => {
+    let dataUser = {
+      id: null,
+      username: '',
+      email: '',
+      picture: ''
+    }
+
+    //const registerUserProfile = require('../src/js/data'); //jest import
+
+    /*it('debería retornar un objeto', () => {
+      assert.equal(typeof registerUserProfile(dataUser), 'object');
+    });*/
+    it('debería retornar un objeto', (done) => {
+      assert.equal(typeof registerUserProfile(dataUser), 'object');  
+      done();
+    }).timeout(5000);
+>>>>>>> 430f5e9c6ccaedbbeb2c27d3403b094462f74e4e
 
   it('debería exponer función deletePost en objeto global', () => {
     assert.isFunction(deletePost);
