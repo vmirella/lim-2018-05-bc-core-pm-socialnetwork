@@ -35,7 +35,9 @@ window.createPost = (postData) => {
 	updates['/posts/' + newPostKey] = postData;
 	updates['/user-posts/' + postData.uid + '/' + newPostKey] = postData;
 
-	return firebase.database().ref().update(updates);
+	firebase.database().ref().update(updates);
+	
+	return newPostKey;
 
 }
 //Esta funcion permite editar posts
