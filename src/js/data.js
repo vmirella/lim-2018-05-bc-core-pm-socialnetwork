@@ -53,7 +53,7 @@ window.editPost = (postId, postData) => {
 //Esta funcion permite eliminar posts
 
 window.deletePost = (postId, uid) => {
-
+	
 	firebase.database().ref('/posts/').child(postId).remove();
 	firebase.database().ref('/user-posts/' + uid + '/').child(postId).remove();
 
