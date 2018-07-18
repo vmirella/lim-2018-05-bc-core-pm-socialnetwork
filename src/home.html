@@ -22,14 +22,14 @@
 
  
 
-  <button id ='toAddPost'>Agregar</button>
-  <button id="logOut" >Log Out</button><hr>
-  <div id="showPost"></div>
+  <button id ='toAddPost' class="btn btn-dark">Agregar</button>
+  <button id="logOut"  class="btn btn-warning">Log Out</button><hr>
+  <div id="showPost" ></div>
 
-  <div id="dataPost">
+  <div id="dataPost" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 panel-login">
 
     
-    <input type="text" id="inputTitle" placeholder="Ingrese el encabezado">
+    <input type="text" id="inputTitle" class="form-control" placeholder="Ingrese el encabezado">
     <select id="optCategory">
       <option value="salud">Salud</option>
       <option value="alimentacion">Alimentacion</option>
@@ -38,14 +38,14 @@
       <div id="contentImagen"></div>
       <!--button id="btnImagen">Subir imagen</button-->
     </div><br>
-    <input id="inputContent" placeholder="Ingrese el contenido">
+    <textarea id="inputContent" class="form-control" aria-label="With textarea"  placeholder="Ingrese el contenido" rows="5"></textarea>
     <select id="optState">
       <option value="publico">Publico</option>
       <option value="privado">Privado</option>
     </select><br><br>
    
-    <button id="addPost">Publicar</button>
-    <button id="editPost">Actualizar</button>
+    <button id="addPost" class="btn btn-primary">Publicar</button>
+    <button id="editPost" class="btn btn-primary">Actualizar</button>
   </div>
 
   <script src="js/data.js"></script>
