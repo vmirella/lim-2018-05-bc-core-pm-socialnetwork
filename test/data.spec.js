@@ -25,24 +25,24 @@ describe('data', () => {
     assert.isFunction(deletePost);
   });
 
-  describe('registerUserProfile(dataUser)', () => {
+  /* describe('registerUserProfile(dataUser)', () => {
     let dataUser = {
       id: null,
       username: '',
       email: '',
       picture: ''
-    }
+    } */
 
     //const registerUserProfile = require('../src/js/data'); //jest import
 
     /*it('debería retornar un objeto', () => {
       assert.equal(typeof registerUserProfile(dataUser), 'object');
     });*/
-    it('debería retornar un objeto', (done) => {
+   /*  it('debería retornar un objeto', (done) => {
       assert.equal(typeof registerUserProfile(dataUser), 'object');  
       done();
     }).timeout(5000);
 
-  });
+  }); */
 
 });
