@@ -6,10 +6,12 @@ const dataRegisterUser = {
 }
 //Esta funcion guarda en la tabla users los datos del usuario
 window.registerUserProfile = (dataUser) => {
+
 	dataRegisterUser.id = dataUser.id;
 	dataRegisterUser.username = dataUser.username;
 	dataRegisterUser.email = dataUser.email;
 	dataRegisterUser.picture = dataUser.picture;
+	
 	firebase.database().ref('users/' + dataUser.id).set({
 		username: dataUser.username,
 		email: dataUser.email,

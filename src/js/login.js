@@ -87,7 +87,8 @@ loginFacebook.addEventListener('click', () => {
 	firebase.auth().signInWithPopup(providerFacebook).then(function(result) {
 		   const token = result.credential.accessToken;
 		   const user = result.user;
-		   const registeredUser = registerUserProfile(user.uid, names.value, lastnames.value, emailRegister.value);
+		   //console.log(user)
+		   //const registeredUser = registerUserProfile(user.uid, names.value, lastnames.value, emailRegister.value);
 
 		  location.href = 'home.html';
 
@@ -97,6 +98,7 @@ loginFacebook.addEventListener('click', () => {
 		   const errorMessage = error.message;
 		   const email = error.email;
 		   const credential = error.credential;
+		   console.log(error)
 		   alert(errorCode,errorMessage,email,credential);		   
 		 });
 	   

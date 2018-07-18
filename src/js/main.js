@@ -50,12 +50,34 @@ let postData = {
 };
 
 //obteniendo el id del usuario actual
+
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {
 		postData.uid = user.uid;
+
+		const prueba = firebase.database().ref('/user-posts/' + postData.uid).once('value').then(function(value) {
+			//console.log(value.val())
+			listPostUser = value.val();
+		  });
+		firebase.database().ref('/user-posts/').once('value').then(function(value) {
+			//console.log(value.val())
+			listPostGeneral = value.val();
+		  });
+
 	}
 	return user
 });
+
+
+window.onload = () =>{
+	
+//Mostrar en la portada del 
+
+	//console.log(listPostUser)
+	//console.log(listPostGeneral)
+
+}
+
 
 btnAddPost.addEventListener('click', () => {
 
@@ -69,11 +91,18 @@ btnAddPost.addEventListener('click', () => {
 	postData.likes = 0,
 	postData.comentary = {};
 
+
 	createPost(postData);
 	alert('se registró post')
 
+	console.log(listPostUser)
+
+	
+	showPost.innerHTML= `estado ${postData.state}<br> Title ${postData.title} <br> category ${postData.category} `
+
 	//Cambiar a muro principal
 })
+
 
 btnEditPost.addEventListener('click', () =>{
 	postData.title = inputTitle.value;
