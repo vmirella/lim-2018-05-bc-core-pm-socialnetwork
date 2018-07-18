@@ -6,10 +6,12 @@ const dataRegisterUser = {
 }
 //Esta funcion guarda en la tabla users los datos del usuario
 window.registerUserProfile = (dataUser) => {
+
 	dataRegisterUser.id = dataUser.id;
 	dataRegisterUser.username = dataUser.username;
 	dataRegisterUser.email = dataUser.email;
 	dataRegisterUser.picture = dataUser.picture;
+	
 	firebase.database().ref('users/' + dataUser.id).set({
 		username: dataUser.username,
 		email: dataUser.email,
@@ -33,7 +35,9 @@ window.createPost = (postData) => {
 	updates['/posts/' + newPostKey] = postData;
 	updates['/user-posts/' + postData.uid + '/' + newPostKey] = postData;
 
-	return firebase.database().ref().update(updates);
+	firebase.database().ref().update(updates);
+	
+	return newPostKey;
 
 }
 //Esta funcion permite editar posts
