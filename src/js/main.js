@@ -65,12 +65,15 @@ const userPost = (listUserPost) => {
   const postsKeys = Object.keys(listUserPost);
 
   postsKeys.forEach(postObject => {
-    showPost.innerHTML += `<div class = ${postObject}> Title ${listUserPost[postObject].title}<br>
+    showPost.innerHTML += `<div class = "${postObject} card col-xl-6 col-lg-6 col-md-6 col-sm-6" > Title ${listUserPost[postObject].title}<br>
     Content ${listUserPost[postObject].content} <br> 
     Category ${listUserPost[postObject].category} <br> 
     State ${listUserPost[postObject].state} <br>
-    <button class = ${postObject} id="edit">Editar</button>  
-    <button class = ${postObject} id="delete">Eliminar</button> <br><br> </div>`
+    <div class = "buttonSel">
+    <button class = "${postObject} btn btn-primary" id="edit">Editar</button>  
+    <button class = "${postObject} btn btn-primary" id="delete">Eliminar</button> <br><br> 
+    </div>
+    </div>`
 
   });
 }
@@ -135,26 +138,29 @@ let postClassName = null;
 
 showPost.addEventListener('click', (event) => {
   postClassName = event.target.className;
+  postClassName = postClassName.split(' ');
+
   console.log(postClassName)
 
    if (event.target.nodeName === "BUTTON" && event.target.id == 'edit' ) {
+
 
     dataPost.style.display = 'block';
     showPost.style.display = 'none';
     btnAddPost.style.display = 'none';
 
-    inputTitle.value = listUserPost[postClassName].title;
-    inputContent.value = listUserPost[postClassName].content;
-    optCategory.value = listUserPost[postClassName].category;
-    optState.value = listUserPost[postClassName].state;
+    inputTitle.value = listUserPost[postClassName[0]].title;
+    inputContent.value = listUserPost[postClassName[0]].content;
+    optCategory.value = listUserPost[postClassName[0]].category;
+    optState.value = listUserPost[postClassName[0]].state;
   
  }
 
   if (event.target.nodeName === "BUTTON" && event.target.id == 'delete' ) {
 
-    const postContentElement = document.getElementsByClassName(postClassName)[0]
+    const postContentElement = document.getElementsByClassName(postClassName[0])[0]
     
-    deletePost(postClassName, postData.uid);
+    deletePost(postClassName[0], postData.uid);
     alert('se eliminó post')
 
     postContentElement.style.display = 'none';
