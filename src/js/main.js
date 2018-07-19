@@ -65,15 +65,15 @@ const userPost = (listUserPost) => {
   const postsKeys = Object.keys(listUserPost);
 
   postsKeys.forEach(postObject => {
-    showPost.innerHTML += `<div class = "${postObject} card col-xl-6 col-lg-6 col-md-6 col-sm-6" >
-    <h5 class="card-title">${listUserPost[postObject].title}</h5>
+    showPost.innerHTML += `<div class = "${postObject} card panel-login">
+    <h5 class="card-title">${listUserPost[postObject].title}</h5><hr>
     <img class="card-img-top" src="http://images.estampas.com/2012/07/01/mascotas.jpg.525.0.thumb" width="40" height="350">
     <p class="card-text">${listUserPost[postObject].content}</p>     
     <div class = "buttonSel">
-    <button class = "${postObject} btn btn-primary  col-sm-5" id="edit">Editar</button>
-    <button class = "${postObject} btn btn-primary col-sm-5" id="delete">Eliminar</button> 
+    <button class = "${postObject} btn btn-light col-sm-3" id="edit">Editar <i class="fas fa-edit"></i></button>
+    <button class = "${postObject} btn btn-light col-sm-3" id="delete">Eliminar <i class="fas fa-trash-alt"></i></button> 
     </div>
-    </div><br> `
+    </div>`
 
   });
 }
@@ -182,7 +182,7 @@ btnEditPost.addEventListener('click', () => {
   postData.likes = 0;
   postData.comentary = {};
 
-  editPost(postClassName, postData);
+  editPost(postClassName[0], postData);
   alert('se editó post')
 
   location.reload();
