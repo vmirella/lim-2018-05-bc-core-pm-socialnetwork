@@ -65,21 +65,22 @@ const userPost = (listUserPost) => {
   const postsKeys = Object.keys(listUserPost);
 
   postsKeys.forEach(postObject => {
-    showPost.innerHTML += `<div class = "${postObject} card col-xl-6 col-lg-6 col-md-6 col-sm-6" > Title ${listUserPost[postObject].title}<br>
-    Content ${listUserPost[postObject].content} <br> 
-    Category ${listUserPost[postObject].category} <br> 
-    State ${listUserPost[postObject].state} <br>
+    showPost.innerHTML += `<div class = "${postObject} card col-xl-6 col-lg-6 col-md-6 col-sm-6" >
+    <h5 class="card-title">${listUserPost[postObject].title}</h5>
+    <img class="card-img-top" src="http://images.estampas.com/2012/07/01/mascotas.jpg.525.0.thumb" width="40" height="350">
+    <p class="card-text">${listUserPost[postObject].content}</p>     
     <div class = "buttonSel">
-    <button class = "${postObject} btn btn-primary" id="edit">Editar</button>  
-    <button class = "${postObject} btn btn-primary" id="delete">Eliminar</button> <br><br> 
+    <button class = "${postObject} btn btn-primary  col-sm-5" id="edit">Editar</button>
+    <button class = "${postObject} btn btn-primary col-sm-5" id="delete">Eliminar</button> 
     </div>
-    </div>`
+    </div><br> `
 
   });
 }
 
 
-
+//Category ${listUserPost[postObject].category} <br> 
+//State ${listUserPost[postObject].state} <br>
 
 window.onload = () => {
 
