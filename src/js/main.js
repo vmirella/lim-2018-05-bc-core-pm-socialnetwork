@@ -65,12 +65,15 @@ const userPost = (listUserPost) => {
   const postsKeys = Object.keys(listUserPost);
 
   postsKeys.forEach(postObject => {
-    showPost.innerHTML += `<div class = ${postObject}> Title ${listUserPost[postObject].title}<br>
+    showPost.innerHTML += `<div class = "${postObject} card col-xl-6 col-lg-6 col-md-6 col-sm-6" > Title ${listUserPost[postObject].title}<br>
     Content ${listUserPost[postObject].content} <br> 
     Category ${listUserPost[postObject].category} <br> 
     State ${listUserPost[postObject].state} <br>
+    <div class = "buttonSel">
     <button class = "${postObject} btn btn-primary" id="edit">Editar</button>  
-    <button class = "${postObject} btn btn-primary" id="delete">Eliminar</button> <br><br> </div>`
+    <button class = "${postObject} btn btn-primary" id="delete">Eliminar</button> <br><br> 
+    </div>
+    </div>`
 
   });
 }

@@ -145,6 +145,10 @@ body {
 	display: flex;
 	flex-direction: row;
 }
+.buttonSel{
+	display: flex;
+	flex-direction: row;
+}
 @media (max-width: 540px) {
 	.panel-login {
 		margin-top: 25px;
