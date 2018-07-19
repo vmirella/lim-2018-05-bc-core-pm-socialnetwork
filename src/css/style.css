@@ -124,6 +124,7 @@ body {
 	background-color: #DC4D28;
 }
 
+
 .panel-login .button-google span {
 	position: absolute;
 	left: 0;
@@ -140,7 +141,10 @@ body {
     font-family: 'Chela One', cursive;
     color: #333333;
 }
-
+.options{
+	display: flex;
+	flex-direction: row;
+}
 @media (max-width: 540px) {
 	.panel-login {
 		margin-top: 25px;
