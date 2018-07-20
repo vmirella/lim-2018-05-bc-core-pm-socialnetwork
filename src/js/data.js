@@ -1,26 +1,41 @@
-const dataRegisterUser = {
-	id: null,
-	username: '',
-	email: '',
-	picture: ''
+window.ingresar = (email, password, cb) => {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+		.then((result) => {
+			console.log('aaaaaaaaaa', result)
+			cb(null, result)
+		})
+		.catch((error) => {
+			console.log('bbbbbbbbbbbbb', result)
+			cb(error)
+		});
 }
-//Esta funcion guarda en la tabla users los datos del usuario
-window.registerUserProfile = (dataUser) => {
 
-	dataRegisterUser.id = dataUser.id;
-	dataRegisterUser.username = dataUser.username;
-	dataRegisterUser.email = dataUser.email;
-	dataRegisterUser.picture = dataUser.picture;
-	
+window.createUser = (email, password, cb) => {
+	console.log('xxxxxxxxxxxxxxxxxx')
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+		.then((result) => {
+			
+			console.log('aaaaaaaaaa', result)
+			cb(null, result)
+		})
+		.catch((error) => {
+			console.log('bbbbbbbbbbbbb', result)
+			cb(error)
+		});
+}
+
+//Esta funcion guarda en la tabla users los datos del usuario
+window.registerUserProfile = (dataUser, callback) => {	
 	firebase.database().ref('users/' + dataUser.id).set({
 		username: dataUser.username,
 		email: dataUser.email,
 		picture: dataUser.picture
-	}, (error) => {
-		return 0;
+	}, (error, user) => {
+		console.log(error, response)
+		cb(error, user)
 	});
 
-	return dataRegisterUser;
+	//return dataRegisterUser;
 }
 //module.exports = registerUserProfile; // //jest export
 
