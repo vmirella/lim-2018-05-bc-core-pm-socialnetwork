@@ -7,7 +7,9 @@ let config = {
   storageBucket: "pet-health-social-network.appspot.com",
   messagingSenderId: "838633128523"
 };
-firebase.initializeApp(config);
+app = firebase.initializeApp(config);
+
+const db = firebase.firestore(app)
 
 const buttonLogOut = document.getElementById('logOut');
 const optCategory = document.getElementById('optCategory');
@@ -44,11 +46,6 @@ let postData = {
 
 };
 
-//Contiene la data de los post 
-
-let listUserPost = {}; //Solo post del usuario logueado
-let listGeneralPost = {}; //Todos los post a mostrarse en la portada principal
-
 const generalPost = (listGeneralPost) => {
 
   const postsKeys = Object.keys(listGeneralPost);
@@ -62,7 +59,9 @@ const generalPost = (listGeneralPost) => {
 }
 const userPost = (listUserPost) => {
 
-  const postsKeys = Object.keys(listUserPost);
+  postsKeys = Object.keys(listUserPost);
+  console.log(listUserPost);
+
 
   postsKeys.forEach(postObject => {
     showPost.innerHTML += `<div class = "${postObject} card panel-login">
@@ -78,29 +77,41 @@ const userPost = (listUserPost) => {
   });
 }
 
-
 //Category ${listUserPost[postObject].category} <br> 
 //State ${listUserPost[postObject].state} <br>
 
 window.onload = () => {
 
+  const callBack = (result) => {
+    userPost(result);
+  }
+
   firebase.auth().onAuthStateChanged(function (user) {
+
+
     if (user) {
-      postData.uid = user.uid; //obteniendo el id del usuario actual
 
-      firebase.database().ref('/user-posts/' + postData.uid).once('value').then(function (value) {
+      const showPost = (uid, cb) =>{
+    
+        firebase.database().ref('/user-posts/' + uid).once('value').then(function (value) {
+          cb(value.val())
+          console.log(value.val())
+            
+       })
+      
+      }
+      showPost(user.uid, callBack);
 
-        listUserPost = value.val();
-        userPost(listUserPost)
-        
-      });
+      postData.uid = user.uid;
 
+
+    }
+    else {
       firebase.database().ref('/posts/').once('value').then(function (value) {
 
         listGeneralPost = value.val();
 
       });
-
     }
 
   });
@@ -109,7 +120,8 @@ window.onload = () => {
 
 }
 
-btnToAddPost.addEventListener('click',()=>{
+
+btnToAddPost.addEventListener('click', () => {
   dataPost.style.display = 'block';
   showPost.style.display = 'none';
   btnEditPost.style.display = 'none';
@@ -128,22 +140,26 @@ btnAddPost.addEventListener('click', () => {
   postData.likes = 0;
   postData.comentary = {};
 
+  console.log(postData);
+
+
 
   idPost = createPost(postData);
-  alert('se registró post')
+  //alert('se registró post')
 
-  location.reload();
+  //location.reload();
 })
 
 let postClassName = null;
 
 showPost.addEventListener('click', (event) => {
+
   postClassName = event.target.className;
   postClassName = postClassName.split(' ');
 
   console.log(postClassName)
 
-   if (event.target.nodeName === "BUTTON" && event.target.id == 'edit' ) {
+  if (event.target.nodeName === "BUTTON" && event.target.id == 'edit') {
 
 
     dataPost.style.display = 'block';
@@ -154,20 +170,20 @@ showPost.addEventListener('click', (event) => {
     inputContent.value = listUserPost[postClassName[0]].content;
     optCategory.value = listUserPost[postClassName[0]].category;
     optState.value = listUserPost[postClassName[0]].state;
-  
- }
 
-  if (event.target.nodeName === "BUTTON" && event.target.id == 'delete' ) {
+  }
+
+  if (event.target.nodeName === "BUTTON" && event.target.id == 'delete') {
 
     const postContentElement = document.getElementsByClassName(postClassName[0])[0]
-    
+
     deletePost(postClassName[0], postData.uid);
-    alert('se eliminó post')
+    //alert('se eliminó post')
 
     postContentElement.style.display = 'none';
   }
 
- 
+
 });
 
 
