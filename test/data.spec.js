@@ -1,10 +1,20 @@
+firebase.initializeApp();
 describe('createUser', () => {
   it('debería ser funcion', () => {
     assert.isFunction(createUser);
   });
-  it('no permite password cortos', () => {
-    createUser('usuario1', '12345678')
+  it('Deberia crear un usuario con password 12345678', () => {
+    createUser('usuario1@gmail.com', '1');
+    //firebase.auth().flush();
+    firebase.auth().getUserByEmail('usuario1@gmail.com').then(function(user) {
+      console.log(user);
+      assert.equal(user, 'ben was created');
+    });
   });
+  /* it('no permite password cortos', () => {
+    createUser('usuario2', '1234')
+  }); */
+
 })
 
 /* describe('data', () => {
