@@ -52,9 +52,7 @@ buttonRegister.addEventListener('click', () => {
 	dataUser.username = names.value + ' '+ lastnames.value;
 	dataUser.email = emailRegister.value;
 	const callback = (error, result) => {
-		
 		if (!error) {
-
 			dataUser.id = result.user.uid;
 			console.log(result.user.uid);
 			console.log(dataUser)
@@ -66,16 +64,16 @@ buttonRegister.addEventListener('click', () => {
 		} else {
 			let errorCode = error.code;
 			if (errorCode === 'auth/email-already-in-use') {
-				//alert('El correo ya se encuentra registrado.');
+				alert('El correo ya se encuentra registrado.');
 			}
 			else if (errorCode === 'auth/weak-password') {
-				//alert('La contraseña es demasiado debil.');
+				alert('La contraseña es demasiado debil.');
 			}
 			else if (errorCode === 'auth/invalid-email') {
-				//alert('El correo es invalido.');
+				alert('El correo es invalido.');
 			}
 			else {
-				//alert('El usuario no se ha podido registrar');
+				alert('El usuario no se ha podido registrar');
 			}
 		}	
 	}
