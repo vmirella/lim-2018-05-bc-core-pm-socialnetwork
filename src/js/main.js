@@ -86,29 +86,31 @@ const userPost = (listUserPost) => {
 
 window.onload = () => {
 
-  firebase.auth().onAuthStateChanged(function (user) {
+  firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       postData.uid = user.uid; //obteniendo el id del usuario actual
 
-      firebase.database().ref('/user-posts/' + postData.uid).once('value').then(function (value) {
+      /* firebase.database().ref('/user-posts/' + postData.uid).once('value').then(function (value) {
 
         listUserPost = value.val();
         userPost(listUserPost);
         
-      });
+      }); */
 
-      firebase.database().ref('/posts/').once('value').then(function (value) {
-
+      firebase.database().ref('/posts/').once('value').then((value) => {
         listGeneralPost = value.val();
-
+        for (const key in listGeneralPost) {
+          const post = listGeneralPost[key];
+          if(user.uid === post.uid){
+            listUserPost[key] = post;
+          }
+        }
+        userPost(listUserPost);
       });
-
     }
-
   });
 
   dataPost.style.display = 'none';
-
 }
 
 btnToAddPost.addEventListener('click',()=>{
