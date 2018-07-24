@@ -79,5 +79,6 @@ window.likePost = (idPost, uid, likeBadge) => {
 		});
 		//Imprime los likes en el badge
 		likeBadge.innerHTML = likes;
+		likeBadge.classList.remove("hidden");
 	});
 }
