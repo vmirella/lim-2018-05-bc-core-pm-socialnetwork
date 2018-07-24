@@ -30,7 +30,7 @@ window.registerUserProfile = (dataUser) => {
 		username: dataUser.username,
 		email: dataUser.email,
 		picture: dataUser.picture		
-	}, (error, user) => {
+	}, (error) => {
 	//	console.log(error, response)
 		//cb(error, user)
 		console.log(error)
