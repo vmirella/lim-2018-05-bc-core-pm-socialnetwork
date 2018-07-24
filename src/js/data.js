@@ -12,7 +12,7 @@ window.logIn = (email, password, cb) => {
 }
 //Funcion que crea una ccuenta de usuario con correo y password
 window.createUser = (email, password, cb) => {
-	firebase.auth().createUserWithEmailAndPassword(email, password)
+	return window.firebase.auth().createUserWithEmailAndPassword(email, password)
 	.then((result) => {
 		console.log('El usuario ha sido creado con cuenta de email y password', result)
 		cb(null, result)
