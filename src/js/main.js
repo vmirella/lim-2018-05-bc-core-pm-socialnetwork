@@ -66,8 +66,22 @@ const userPost = (listUserPost) => {
 
   postsKeys.forEach(postObject => {
     console.log(postObject);
-    let output = `<div class = "${postObject} card panel-login">
-    <h5 class="card-title">${listUserPost[postObject].title}</h5><hr>
+
+    //formateando fecha
+    let date = listUserPost[postObject].date;
+    date = new Date(date);
+    
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    let newDate = day + '/' + month + '/' + year;
+
+    let output = `<div class = "${postObject} post panel-login">
+    <h5 class="card-title">${listUserPost[postObject].title}</h5>
+    <span class="category"><i class="far fa-folder-open"></i> ${listUserPost[postObject].category}</span>
+    <span class="date"><i class="far fa-calendar-alt"></i> ${newDate}</span>
+    <hr>
     <img class="card-img-top" src="http://images.estampas.com/2012/07/01/mascotas.jpg.525.0.thumb" width="40" height="350">
     <p class="card-text">${listUserPost[postObject].content}</p>     
     <div class = "buttonSel">
@@ -139,7 +153,6 @@ btnAddPost.addEventListener('click', () => {
   postData.state = optState.value;
   postData.likes = 0;
   postData.comentary = {};
-
 
   idPost = createPost(postData);
   alert('se registró post')
