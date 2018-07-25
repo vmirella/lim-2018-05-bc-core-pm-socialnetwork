@@ -160,7 +160,7 @@ window.onload = () => {
 
 btnToAddPost.addEventListener('click', () => {
   dataPost.style.display = 'block';
-  showPost.style.display = 'none';
+  //showPost.style.display = 'none';
   btnEditPost.style.display = 'none';
 })
 
