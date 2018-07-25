@@ -42,6 +42,7 @@ window.createUser = (email, password, cb) => {
 			console.log('Ha habido un error')
 			console.log(error)
 			cb(error)
+	
 		});
 }
 
