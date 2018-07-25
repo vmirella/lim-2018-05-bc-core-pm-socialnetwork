@@ -163,14 +163,14 @@ body {
 	justify-content: space-around;
 	
 }
-.mainCotainer{
+.mainContainer{
 	display: flex;
 	justify-content: center;
 }
 #showPost{
-	display: flex;
+	/*display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: center;*/
 	
 }
 @media (max-width: 540px) {
@@ -287,6 +287,19 @@ outline: none;
 	border-color: #009E66;
 }
 /* Estilos de los post*/
+.div-form {
+	background-color: #fff;
+	margin-top: 30px;
+}
+
+.div-form .btn {
+	width: 100%;
+	border-radius: 0;
+}
+
+.form-add-post {
+	padding: 20px;
+}
 .post {
 	background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
