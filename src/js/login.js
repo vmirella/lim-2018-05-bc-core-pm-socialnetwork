@@ -48,63 +48,26 @@ let dataUser = {
 }
 
 buttonRegister.addEventListener('click', () => {
-
-  dataUser.username = names.value + ' ' + lastnames.value;
-  dataUser.email = emailRegister.value;
-  const callback = (error, result) => {
-
-    if (!error) {
-
-      dataUser.id = result.user.uid;
-
-      registerUserProfile(dataUser);
-      alert('El usuario ha sido registrado, Ahora ya puede ingresar');
-      linkLogin.click();
-      email.value = result.user.email;
-    } else {
-      let errorCode = error.code;
-      if (errorCode === 'auth/email-already-in-use') {
-        //alert('El correo ya se encuentra registrado.');
-      }
-      else if (errorCode === 'auth/weak-password') {
-        //alert('La contraseña es demasiado debil.');
-      }
-      else if (errorCode === 'auth/invalid-email') {
-        //alert('El correo es invalido.');
-      }
-      else {
-        //alert('El usuario no se ha podido registrar');
-      }
-    }
-  }
-  createUser(emailRegister.value, passRegister.value, callback);
-
-
-	/* firebase.auth().createUserWithEmailAndPassword(emailRegister.value, passRegister.value)
-		.then((result) => {
-			firebase.auth().onAuthStateChanged((user) => {
-				if (user) {	
-					let dataUser = {
-						id: null,
-						username: '',
-						email: '',
-						picture: ''
-					}
-					dataUser.id = user.uid;
-					dataUser.username = names.value + ' '+ lastnames.value;
-					dataUser.email = emailRegister.value;
-					const registeredUserWith = registerUserProfile(dataUser);
-					if(typeof(registeredUserWith) == 'object') {
-						alert('El usuario ha sido registrado, Ahora ya puede ingresar');
-						linkLogin.click();
-					}
-					else {
-						alert('El usuario no se ha podido registrar');
-					}
-				} 
-			})
-		})		
-		.catch((error) => {
+	const dataUser = {
+		id: null,
+		username: '',
+		email: '',
+		picture: ''
+	}
+	
+	dataUser.username = names.value + ' '+ lastnames.value;
+	dataUser.email = emailRegister.value;
+	const callback = (error, result) => {
+		if (!error) {
+			dataUser.id = result.user.uid;
+			console.log(result.user.uid);
+			console.log(dataUser)
+			registerUserProfile(dataUser);
+			alert('El usuario ha sido registrado, Ahora ya puede ingresar');
+			linkLogin.click();
+			email.value = result.user.email;
+			console.log(result.user.email);
+		} else {
 			let errorCode = error.code;
 			if (errorCode === 'auth/email-already-in-use') {
 				alert('El correo ya se encuentra registrado.');
@@ -115,7 +78,14 @@ buttonRegister.addEventListener('click', () => {
 			else if (errorCode === 'auth/invalid-email') {
 				alert('El correo es invalido.');
 			}
-		}); */
+			else {
+				alert('El usuario no se ha podido registrar');
+			}
+		}	
+	}
+	createUser(emailRegister.value, passRegister.value, callback);
+
+
 });
 
 eventLogin.addEventListener('click', (event) => {

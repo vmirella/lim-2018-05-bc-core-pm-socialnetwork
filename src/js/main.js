@@ -64,15 +64,39 @@ const userPost = (listUserPost) => {
 
 
   postsKeys.forEach(postObject => {
-    showPost.innerHTML += `<div class = "${postObject} card panel-login">
-    <h5 class="card-title">${listUserPost[postObject].title}</h5><hr>
+    console.log(postObject);
+
+    //formateando fecha
+    let date = listUserPost[postObject].date;
+    date = new Date(date);
+
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    let newDate = day + '/' + month + '/' + year;
+
+    let output = `<div class = "${postObject} post panel-login">
+    <h5 class="card-title">${listUserPost[postObject].title}</h5>
+    <span class="category"><i class="far fa-folder-open"></i> ${listUserPost[postObject].category}</span>
+    <span class="date"><i class="far fa-calendar-alt"></i> ${newDate}</span>
+    <hr>
     <img class="card-img-top" src="http://images.estampas.com/2012/07/01/mascotas.jpg.525.0.thumb" width="40" height="350">
     <p class="card-text">${listUserPost[postObject].content}</p>     
     <div class = "buttonSel">
     <button class = "${postObject} btn btn-light col-sm-3" id="edit">Editar <i class="fas fa-edit"></i></button>
-    <button class = "${postObject} btn btn-light col-sm-3" id="delete">Eliminar <i class="fas fa-trash-alt"></i></button> 
-    </div>
-    </div>`
+    <button class = "${postObject} btn btn-light col-sm-3" id="delete">Eliminar <i class="fas fa-trash-alt"></i></button>`;
+    if (listUserPost[postObject].likes > 0) {
+      output += `<button class = "${postObject} btn btn-light col-sm-3" id="like">Me gusta <i class="far fa-thumbs-up"></i> <span id="badge-${postObject}" class="badge badge-success">${listUserPost[postObject].likes}</span></button>
+      </div>
+      </div>`;
+    } else {
+      output += `<button class = "${postObject} btn btn-light col-sm-3" id="like">Me gusta <i class="far fa-thumbs-up"></i> <span id="badge-${postObject}" class="badge badge-success hidden">${listUserPost[postObject].likes}</span></button>
+      </div>
+      </div>`;
+    }
+
+    showPost.innerHTML += output;
 
   });
 }
@@ -80,8 +104,33 @@ const userPost = (listUserPost) => {
 //Category ${listUserPost[postObject].category} <br> 
 //State ${listUserPost[postObject].state} <br>
 
+let listUserPost = {};
+
 window.onload = () => {
 
+  /*firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+
+       firebase.database().ref('/user-posts/' + postData.uid).once('value').then(function (value) {
+
+        listUserPost = value.val();
+        userPost(listUserPost);
+        
+      }); 
+
+      firebase.database().ref('/posts/').once('value').then((value) => {
+        listGeneralPost = value.val();
+        for (const key in listGeneralPost) {
+          const post = listGeneralPost[key];
+          if(user.uid === post.uid){
+            listUserPost[key] = post;
+          }
+        }
+        userPost(listUserPost);
+      });
+    }
+ 
+  */
   const callBack = (result) => {
     userPost(result);
   }
@@ -90,34 +139,22 @@ window.onload = () => {
 
 
     if (user) {
+      postData.uid = user.uid;
+      const showPost = (uid, cb) => {
 
-      const showPost = (uid, cb) =>{
-    
-        firebase.database().ref('/user-posts/' + uid).once('value').then(function (value) {
+        firebase.database().ref('/posts/').orderByChild('date').once('value').then((value) => {
           cb(value.val())
-          console.log(value.val())
-            
-       })
-      
+          
+        //  firebase.database().ref('/posts/')
+        })
+
       }
       showPost(user.uid, callBack);
 
-      postData.uid = user.uid;
-
-
-    }
-    else {
-      firebase.database().ref('/posts/').once('value').then(function (value) {
-
-        listGeneralPost = value.val();
-
-      });
-    }
-
+    } 
   });
 
   dataPost.style.display = 'none';
-
 }
 
 
@@ -140,10 +177,6 @@ btnAddPost.addEventListener('click', () => {
   postData.likes = 0;
   postData.comentary = {};
 
-  console.log(postData);
-
-
-
   idPost = createPost(postData);
   //alert('se registró post')
 
@@ -157,7 +190,7 @@ showPost.addEventListener('click', (event) => {
   postClassName = event.target.className;
   postClassName = postClassName.split(' ');
 
-  console.log(postClassName)
+  console.log(postClassName);
 
   if (event.target.nodeName === "BUTTON" && event.target.id == 'edit') {
 
@@ -181,6 +214,11 @@ showPost.addEventListener('click', (event) => {
     //alert('se eliminó post')
 
     postContentElement.style.display = 'none';
+  }
+
+  if (event.target.nodeName === "BUTTON" && event.target.id == 'like') {
+    const likeBadge = document.getElementById('badge-' + postClassName[0]);
+    likePost(postClassName[0], postData.uid, likeBadge);
   }
 
 
