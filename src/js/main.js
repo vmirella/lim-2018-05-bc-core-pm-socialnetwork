@@ -7,7 +7,9 @@ let config = {
   storageBucket: "pet-health-social-network.appspot.com",
   messagingSenderId: "838633128523"
 };
-firebase.initializeApp(config);
+app = firebase.initializeApp(config);
+
+const db = firebase.firestore(app)
 
 const buttonLogOut = document.getElementById('logOut');
 const optCategory = document.getElementById('optCategory');
@@ -44,11 +46,6 @@ let postData = {
 
 };
 
-//Contiene la data de los post 
-
-let listUserPost = {}; //Solo post del usuario logueado
-let listGeneralPost = {}; //Todos los post a mostrarse en la portada principal
-
 const generalPost = (listGeneralPost) => {
 
   const postsKeys = Object.keys(listGeneralPost);
@@ -62,7 +59,9 @@ const generalPost = (listGeneralPost) => {
 }
 const userPost = (listUserPost) => {
 
-  const postsKeys = Object.keys(listUserPost);
+  postsKeys = Object.keys(listUserPost);
+  console.log(listUserPost);
+
 
   postsKeys.forEach(postObject => {
     console.log(postObject);
@@ -70,7 +69,7 @@ const userPost = (listUserPost) => {
     //formateando fecha
     let date = listUserPost[postObject].date;
     date = new Date(date);
-    
+
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let day = date.getDate();
@@ -102,22 +101,22 @@ const userPost = (listUserPost) => {
   });
 }
 
-
 //Category ${listUserPost[postObject].category} <br> 
 //State ${listUserPost[postObject].state} <br>
 
+let listUserPost = {};
+
 window.onload = () => {
 
-  firebase.auth().onAuthStateChanged((user) => {
+  /*firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      postData.uid = user.uid; //obteniendo el id del usuario actual
 
-      /* firebase.database().ref('/user-posts/' + postData.uid).once('value').then(function (value) {
+       firebase.database().ref('/user-posts/' + postData.uid).once('value').then(function (value) {
 
         listUserPost = value.val();
         userPost(listUserPost);
         
-      }); */
+      }); 
 
       firebase.database().ref('/posts/').once('value').then((value) => {
         listGeneralPost = value.val();
@@ -130,12 +129,36 @@ window.onload = () => {
         userPost(listUserPost);
       });
     }
+ 
+  */
+  const callBack = (result) => {
+    userPost(result);
+  }
+
+  firebase.auth().onAuthStateChanged(function (user) {
+
+
+    if (user) {
+      postData.uid = user.uid;
+      const showPost = (uid, cb) => {
+
+        firebase.database().ref('/posts/').orderByChild('date').once('value').then((value) => {
+          cb(value.val())
+          
+        //  firebase.database().ref('/posts/')
+        })
+
+      }
+      showPost(user.uid, callBack);
+
+    } 
   });
 
   dataPost.style.display = 'none';
 }
 
-btnToAddPost.addEventListener('click',()=>{
+
+btnToAddPost.addEventListener('click', () => {
   dataPost.style.display = 'block';
   showPost.style.display = 'none';
   btnEditPost.style.display = 'none';
@@ -155,20 +178,21 @@ btnAddPost.addEventListener('click', () => {
   postData.comentary = {};
 
   idPost = createPost(postData);
-  alert('se registró post')
+  //alert('se registró post')
 
-  location.reload();
+  //location.reload();
 })
 
 let postClassName = null;
 
 showPost.addEventListener('click', (event) => {
+
   postClassName = event.target.className;
   postClassName = postClassName.split(' ');
 
   console.log(postClassName);
 
-   if (event.target.nodeName === "BUTTON" && event.target.id == 'edit' ) {
+  if (event.target.nodeName === "BUTTON" && event.target.id == 'edit') {
 
 
     dataPost.style.display = 'block';
@@ -179,25 +203,25 @@ showPost.addEventListener('click', (event) => {
     inputContent.value = listUserPost[postClassName[0]].content;
     optCategory.value = listUserPost[postClassName[0]].category;
     optState.value = listUserPost[postClassName[0]].state;
-  
- }
 
-  if (event.target.nodeName === "BUTTON" && event.target.id == 'delete' ) {
+  }
+
+  if (event.target.nodeName === "BUTTON" && event.target.id == 'delete') {
 
     const postContentElement = document.getElementsByClassName(postClassName[0])[0]
-    
+
     deletePost(postClassName[0], postData.uid);
-    alert('se eliminó post')
+    //alert('se eliminó post')
 
     postContentElement.style.display = 'none';
   }
 
-  if (event.target.nodeName === "BUTTON" && event.target.id == 'like' ){
-    const likeBadge = document.getElementById('badge-'+postClassName[0]);
+  if (event.target.nodeName === "BUTTON" && event.target.id == 'like') {
+    const likeBadge = document.getElementById('badge-' + postClassName[0]);
     likePost(postClassName[0], postData.uid, likeBadge);
   }
 
- 
+
 });
 
 
