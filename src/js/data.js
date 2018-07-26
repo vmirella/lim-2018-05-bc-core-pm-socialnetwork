@@ -106,8 +106,16 @@ window.likePost = (idPost, uid, likeBadge) => {
 	});
 }
 window.showPost = (cb) => {
-  firebase.database().ref('/posts/').once('value').then((value) => {
-    cb(value.val())
-  })
+	//al leer sin usar once(), los datos se vuelven a cargar al detectar un cambio en firebase
+	var dataPost = firebase.database().ref('/posts/');
+	//limitToLast(10) muestra los 10 ultimos
+	dataPost.orderByChild('date').limitToLast(10).on('value', (snapshot) => {
+		cb(snapshot.val());
+	});
+
+	//al leer con once(), los datos se cargar solo una vez
+  /*firebase.database().ref('/posts/').once('value').then((value) => {
+    cb(value.val());
+  })*/
 
 }

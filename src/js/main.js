@@ -9,7 +9,7 @@ let config = {
 };
 app = firebase.initializeApp(config);
 
-const db = firebase.firestore(app)
+const db = firebase.firestore(app);
 
 const buttonLogOut = document.getElementById('logOut');
 const optCategory = document.getElementById('optCategory');
@@ -24,12 +24,22 @@ const btnDeletePost = document.getElementById('deletePost');
 const showPostElement = document.getElementById('showPost');
 const dataPost = document.getElementById('dataPost');
 const btnToAddPost = document.getElementById('toAddPost');
+const closeCreate = document.getElementById('close-create');
+
+let typePost = 'publico';
 
 buttonLogOut.addEventListener('click', () => {
   firebase.auth().signOut();
   location.href = 'index.html';
-})
+});
 
+closeCreate.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  //slideUp() funcion de jquery - oculta div
+  $('#dataPost').slideUp('slow');
+  //dataPost.style.display = 'none';
+});
 
 // creando objeto que contiene la data del post
 
@@ -124,8 +134,11 @@ window.onload = () => {
 }
 
 
-btnToAddPost.addEventListener('click', () => {
-  dataPost.style.display = 'block';
+btnToAddPost.addEventListener('click', (event) => {
+  event.preventDefault();
+  //slideUp() funcion de jquery - oculta div
+  $('#dataPost').slideDown('slow');
+  //dataPost.style.display = 'block';
   //showPost.style.display = 'none';
   btnEditPost.style.display = 'none';
 })
@@ -144,9 +157,8 @@ btnAddPost.addEventListener('click', () => {
   postData.comentary = {};
 
   idPost = createPost(postData);
-  //alert('se registró post')
-
-  //location.reload();
+  //slideUp() funcion de jquery - oculta div
+  $('#dataPost').slideUp('slow');
 })
 
 let postClassName = null;
@@ -203,9 +215,9 @@ btnEditPost.addEventListener('click', () => {
   postData.comentary = {};
 
   editPost(postClassName[0], postData);
-  alert('se editó post')
+  //alert('se editó post')
 
-  location.reload();
+  //location.reload();
 })
 
 
