@@ -105,10 +105,32 @@ window.likePost = (idPost, uid, likeBadge) => {
 		likeBadge.classList.remove("hidden");
 	});
 }
+/*
 window.showPost = (uid, cb) => {
 
   firebase.database().ref('/posts/').once('value').then((value) => {
     cb(value.val())
+  })
+
+}*/
+
+window.sortPost = (posts) =>{
+  let arrPost = [];
+  let keyPost = Object.keys(posts);
+  arrPost = Object.values(posts)
+  arrPost = arrPost.map(el=>{ 
+    let i =0;
+    el.id = keyPost[i]
+    i ++;
+    return el;
+  })
+  arraPost = arrPost.sort((a,b)=>{return b.date - a.date})
+ 
+  return arraPost; 
+}
+window.showPost = (cb) => {
+  firebase.database().ref('/posts/').once('value').then((value) => {
+    cb(sortPost(value.val()));
   })
 
 }
