@@ -105,8 +105,7 @@ window.likePost = (idPost, uid, likeBadge) => {
 		likeBadge.classList.remove("hidden");
 	});
 }
-window.showPost = (uid, cb) => {
-
+window.showPost = (cb) => {
   firebase.database().ref('/posts/').once('value').then((value) => {
     cb(value.val())
   })

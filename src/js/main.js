@@ -21,7 +21,7 @@ const inputContent = document.getElementById('inputContent');
 const btnAddPost = document.getElementById('addPost');
 const btnEditPost = document.getElementById('editPost');
 const btnDeletePost = document.getElementById('deletePost');
-const showPost = document.getElementById('showPost');
+const showPostElement = document.getElementById('showPost');
 const dataPost = document.getElementById('dataPost');
 const btnToAddPost = document.getElementById('toAddPost');
 
@@ -96,61 +96,27 @@ const userPost = (listUserPost) => {
       </div>`;
     }
 
-    showPost.innerHTML += output;
+    showPostElement.innerHTML += output;
 
   });
 }
+listUserPost={};
 
 //Category ${listUserPost[postObject].category} <br> 
 //State ${listUserPost[postObject].state} <br>
 
-let listUserPost = {};
-
 window.onload = () => {
-
-  /*firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-
-       firebase.database().ref('/user-posts/' + postData.uid).once('value').then(function (value) {
-
-        listUserPost = value.val();
-        userPost(listUserPost);
-        
-      }); 
-
-      firebase.database().ref('/posts/').once('value').then((value) => {
-        listGeneralPost = value.val();
-        for (const key in listGeneralPost) {
-          const post = listGeneralPost[key];
-          if(user.uid === post.uid){
-            listUserPost[key] = post;
-          }
-        }
-        userPost(listUserPost);
-      });
-    }
- 
-  */
   const callBack = (result) => {
+    console.log(result);
+    
     userPost(result);
   }
 
   firebase.auth().onAuthStateChanged(function (user) {
 
-
     if (user) {
       postData.uid = user.uid;
-      const showPost = (uid, cb) => {
-
-        firebase.database().ref('/posts/').orderByChild('date').once('value').then((value) => {
-          cb(value.val())
-          
-        //  firebase.database().ref('/posts/')
-        })
-
-      }
-      showPost(user.uid, callBack);
-
+      showPost(callBack);
     } 
   });
 
@@ -185,7 +151,7 @@ btnAddPost.addEventListener('click', () => {
 
 let postClassName = null;
 
-showPost.addEventListener('click', (event) => {
+showPostElement.addEventListener('click', (event) => {
 
   postClassName = event.target.className;
   postClassName = postClassName.split(' ');
