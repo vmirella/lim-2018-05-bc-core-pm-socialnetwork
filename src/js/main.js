@@ -23,22 +23,46 @@ const btnEditPost = document.getElementById('editPost');
 const btnDeletePost = document.getElementById('deletePost');
 const showPostElement = document.getElementById('showPost');
 const dataPost = document.getElementById('dataPost');
-const btnToAddPost = document.getElementById('toAddPost');
 const closeCreate = document.getElementById('close-create');
 const buttonsCategory = document.getElementById('buttons-category');
+const showCategories = document.getElementById('show-categories');
 
 let typePost = 'publico';
+let flagLateralMenu = 1;
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth <= 767) {
+    buttonsCategory.style.display = 'none';
+    flagLateralMenu = 0;
+  }
+  else {
+    buttonsCategory.style.display = 'block';
+    flagLateralMenu = 1;  
+  }
+});
 
 buttonLogOut.addEventListener('click', () => {
   firebase.auth().signOut();
   location.href = 'index.html';
 });
 
+showCategories.addEventListener('click', () => {
+  if (flagLateralMenu === 0) {
+    $('#buttons-category').slideDown('slow'); 
+    flagLateralMenu = 1;
+  }
+  else if (flagLateralMenu === 1) {
+    $('#buttons-category').slideUp('slow'); 
+    flagLateralMenu = 0;
+  }
+   
+});
 closeCreate.addEventListener('click', (event) => {
   event.preventDefault();
 
   //slideUp() funcion de jquery - oculta div
-  $('#dataPost').slideUp('slow');
+  $('#hidden-form').slideUp('slow');
+  $('#close-create').hide('fade', 500);
   //dataPost.style.display = 'none';
 });
 
@@ -191,19 +215,16 @@ window.onload = () => {
 >>>>>>> bef3fb94765bba7f1c7e3d9353790c3b98a71da0
   });
 
-  dataPost.style.display = 'none';
+  btnEditPost.style.display = 'none';
 }
 
 
-btnToAddPost.addEventListener('click', (event) => {
-  event.preventDefault();
+inputTitle.addEventListener('focus', () => {
   //slideUp() funcion de jquery - oculta div
-  $('#dataPost').slideDown('slow');
-  //dataPost.style.display = 'block';
-  //showPost.style.display = 'none';
-  btnEditPost.style.display = 'none';
+  $('#hidden-form').slideDown('slow');
+  $('#close-create').show('fade', 500);
   
-
+  btnEditPost.style.display = 'none';
 })
 
 let idPost = '';//Guardar id post
@@ -316,10 +337,13 @@ buttonsCategory.addEventListener('click', (event) => {
     case "category-mascotas-perdidas":
     filterPost('Mascotas Perdidas', callBack);
       break;
+      case "category-sos":
+    filterPost('SOS', callBack);
+      break;
     default:
     filterPost('Entretenimiento', callBack);
   }
-
+  event.preventDefault();
 
   console.log(idCategory);
 })

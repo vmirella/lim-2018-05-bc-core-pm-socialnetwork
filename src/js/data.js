@@ -77,9 +77,12 @@ window.createPost = (postData) => {
 window.editPost = (postId, postData) => {
 	const updates = {};
 	updates['/posts/' + postId] = postData;
-	//updates['/user-posts/' + postData.uid + '/' + postId] = postData;
+	//firebase.database().ref('/posts/' + postId).update(postData);
 	return firebase.database().ref().update(updates);
 }
+
+//Lee los post para usarlos en el test
+window.getPostList = () => firebase.database().ref('posts').once('value');
 
 //Esta funcion permite eliminar posts
 window.deletePost = (postId, uid) => {
