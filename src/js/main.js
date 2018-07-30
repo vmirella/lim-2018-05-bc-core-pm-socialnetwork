@@ -327,7 +327,7 @@ buttonsCategoryPost.addEventListener('click', (event) => {
   }
   const category = event.target.innerText;
   console.log(category);
-  
+
   if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
     showPosts('category', category, callBack);
   }
@@ -340,9 +340,9 @@ buttonsCategory.addEventListener('click', (event) => {
   }
   const category = event.target.innerText;
   console.log(category);
-  
+
   if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
-    showMyPosts(postData,'category', category, callBack);
+    showMyPosts(postData, 'category', category, callBack);
   }
 })
 
@@ -366,6 +366,6 @@ myPosts.addEventListener('click', () => {
 })
 searchButtonPost.addEventListener('input', () => {
   const inputValue = inputElement.value;
-  showMyPosts(postData,'title', inputValue, callBack);
+  showMyPosts(postData, 'title', inputValue, callBack);
 })
 
