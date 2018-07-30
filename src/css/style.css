@@ -152,10 +152,12 @@ body {
 	background-color: #B03E20;
 	border-color: #B03E20;
 }
-
+.navbar {
+	background-color: #35CD97;
+}
 .navbar-brand {
-    font-family: 'Chela One', cursive;
-    color: #333333;
+	font-family: 'Chela One', cursive;
+	color: #333333;
 }
 .options{
 	display: flex;
@@ -167,7 +169,31 @@ body {
 	justify-content: space-around;
 	
 }
-.mainContainer{
+
+.btn-form-color {
+	background-color: #009E66;
+	color: #FFF;
+	border-color: #009E66;
+	margin-bottom: 0;
+}
+
+.btn-form-color:blur {
+	background-color: #35CD97;
+	color: #fff;
+}
+
+.btn-form-color:hover {
+	background-color: #35CD97;
+	color: #fff;
+}
+
+.btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .show>.btn-success.dropdown-toggle {
+	background-color: #35CD97;
+	border-color: #35CD97;
+	color: #fff;
+}
+
+.mainContainer {
 	display: flex;
 	justify-content: center;
 }
