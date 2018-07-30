@@ -1,4 +1,5 @@
-mocksdk.initializeApp();
+
+ mocksdk.initializeApp();
 describe('createUser', () => {
   it('debería ser funcion', () => {
     assert.isFunction(createUser);
@@ -10,10 +11,10 @@ describe('createUser', () => {
       console.log(user);
       assert.equal(user, 'ben was created');
     });
-  });
-  /* it('no permite password cortos', () => {
+  }); 
+   it('no permite password cortos', () => {
     createUser('usuario2', '1234')
-  }); */
+  }); 
 
 })
 
