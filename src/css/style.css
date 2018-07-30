@@ -201,6 +201,12 @@ body {
 .container-new-post {
 	margin-top: 70px;
 }
+/*#buttons-category{
+	display: none;
+}*/
+#search-button{
+	display: none;
+}
 #showPost{
 	/*display: flex;
 	flex-direction: column;
