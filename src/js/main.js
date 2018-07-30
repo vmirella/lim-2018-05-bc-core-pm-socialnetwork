@@ -94,49 +94,7 @@ const generalPost = (listGeneralPost) => {
     State ${listGeneralPost[postObject].state} <br><br>`
   });
 }
-/*const userPost = (listUserPost) => {
 
-  postsKeys = Object.keys(listUserPost);
-  console.log(listUserPost);
-
-
-  postsKeys.forEach(postObject => {
-    console.log(postObject);
-
-    //formateando fecha
-    let date = listUserPost[postObject].date;
-    date = new Date(date);
-
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    let newDate = day + '/' + month + '/' + year;
-
-    let output = `<div class = "${postObject} post panel-login">
-    <h5 class="card-title">${listUserPost[postObject].title}</h5>
-    <span class="category"><i class="far fa-folder-open"></i> ${listUserPost[postObject].category}</span>
-    <span class="date"><i class="far fa-calendar-alt"></i> ${newDate}</span>
-    <hr>
-    <img class="card-img-top" src="http://images.estampas.com/2012/07/01/mascotas.jpg.525.0.thumb" width="40" height="350">
-    <p class="card-text">${listUserPost[postObject].content}</p>     
-    <div class = "buttonSel">
-    <button class = "${postObject} btn btn-light col-sm-3" id="edit">Editar <i class="fas fa-edit"></i></button>
-    <button class = "${postObject} btn btn-light col-sm-3" id="delete">Eliminar <i class="fas fa-trash-alt"></i></button>`;
-    if (listUserPost[postObject].likes > 0) {
-      output += `<button class = "${postObject} btn btn-light col-sm-3" id="like">Me gusta <i class="far fa-thumbs-up"></i> <span id="badge-${postObject}" class="badge badge-success">${listUserPost[postObject].likes}</span></button>
-      </div>
-      </div>`;
-    } else {
-      output += `<button class = "${postObject} btn btn-light col-sm-3" id="like">Me gusta <i class="far fa-thumbs-up"></i> <span id="badge-${postObject}" class="badge badge-success hidden">${listUserPost[postObject].likes}</span></button>
-      </div>
-      </div>`;
-    }
-
-    showPostElement.innerHTML += output;
-
-  });
-}*/
 const userPost = (listUserPost) => {
 
   postsKeys = listUserPost.id;
@@ -212,7 +170,7 @@ window.onload = () => {
 
     if (user) {
       postData.uid = user.uid;
-      showPost(callBack);
+      showPosts(callBack);
     }
   });
 
@@ -225,7 +183,7 @@ inputTitle.addEventListener('focus', () => {
   $('#hidden-form').slideDown('slow');
   $('#close-create').show('fade', 500);
   
-  //btnEditPost.style.display = 'none';
+  btnEditPost.style.display = 'none';
 })
 
 let idPost = '';//Guardar id post
