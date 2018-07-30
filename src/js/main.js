@@ -212,7 +212,10 @@ inputTitle.addEventListener('focus', () => {
 let idPost = '';//Guardar id post
 
 btnAddPost.addEventListener('click', () => {
-
+  if (inputTitle.value == '' || inputContent.value == '') {
+    alert('El título y el contenido no pueden estar vacíos.');
+    return;
+  }
   postData.title = inputTitle.value;
   postData.image = '';
   postData.content = inputContent.value;
