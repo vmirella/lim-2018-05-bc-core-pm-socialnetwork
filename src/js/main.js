@@ -25,7 +25,7 @@ const showPostElement = document.getElementById('showPost');
 const dataPost = document.getElementById('dataPost');
 const closeCreate = document.getElementById('close-create');
 const buttonsCategory = document.getElementById('buttons-category');
-const buttonsCategoryPost = document.getElementById('buttons-category-post');
+//const buttonsCategoryPost = document.getElementById('buttons-category-post');
 const showCategories = document.getElementById('show-categories');
 const myPosts = document.getElementById('my-posts');
 const hiddenForm = document.getElementById('hidden-form');
@@ -36,6 +36,7 @@ const searchButtonPost = document.getElementById('search-button-post');
 let typePost = 'publico';
 let flagLateralMenu = 1;
 let flagPost = 0; //1 crear post - 2 editar post
+let flagPublicPrivate = 1; //1 posts publicos - 2 mis posts
 
 window.addEventListener('resize', () => {
   if (window.innerWidth <= 767) {
@@ -284,9 +285,9 @@ btnEditPost.addEventListener('click', () => {
   alert('se editó post')
 
   location.reload();
-})
+});
 
-buttonsCategoryPost.addEventListener('click', (event) => {
+/* buttonsCategoryPost.addEventListener('click', (event) => {
   showPostElement.innerHTML = '';
   const callBack = (result) => {
     postPublic(result);
@@ -295,24 +296,38 @@ buttonsCategoryPost.addEventListener('click', (event) => {
   if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
     showPosts('category', category, callBack);
   }
-})
+}) */
 
 buttonsCategory.addEventListener('click', (event) => {
-  showPostElement.innerHTML = '';
-  const callBack = (result) => {
-    userPost(result);
+  if (flagPublicPrivate === 1) {
+    showPostElement.innerHTML = '';
+    const callBack = (result) => {
+      postPublic(result);
+    }
+    const category = event.target.innerText;
+    if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
+      showPosts('category', category, callBack);
+    }  
+  } else if (flagPublicPrivate === 2) {
+    showPostElement.innerHTML = '';
+    const callBack = (result) => {
+      userPost(result);
+    }
+    const category = event.target.innerText;
+    if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
+      showMyPosts(postData, 'category', category, callBack);
+    }
   }
-  const category = event.target.innerText;
-  if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
-    showMyPosts(postData, 'category', category, callBack);
-  }
-})
+  
+});
 
 
 myPosts.addEventListener('click', () => {
+  flagPublicPrivate = 2;
+
   showPostElement.innerHTML = '';
   inputElement.value = ''
-  buttonsCategoryPost.style.display = 'none';
+  //buttonsCategoryPost.style.display = 'none';
   buttonsCategory.style.display = 'block';
   searchButtonPost.style.display = 'none';
   searchButton.style.display = 'block';
