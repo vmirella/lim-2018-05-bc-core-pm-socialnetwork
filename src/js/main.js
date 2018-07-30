@@ -29,9 +29,11 @@ const showCategories = document.getElementById('show-categories');
 const myPosts = document.getElementById('my-posts');
 const containerMyPosts = document.getElementsByClassName('container-my-post')[0]
 const container = document.getElementsByClassName('container')[0]
+const hiddenForm = document.getElementById('hidden-form');
 
 let typePost = 'publico';
 let flagLateralMenu = 1;
+let flagPost = 0; //1 crear post - 2 editar post
 
 window.addEventListener('resize', () => {
   if (window.innerWidth <= 767) {
@@ -84,15 +86,61 @@ let postData = {
 
 };
 
-const generalPost = (listGeneralPost) => {
+const postPublic = (listUserPost) => {
 
-  const postsKeys = Object.keys(listGeneralPost);
+  postsKeys = listUserPost.id;
+  console.log(listUserPost);
 
-  postsKeys.forEach(postObject => {
-    showPostElement.innerHTML += `Title ${listGeneralPost[postObject].title} <br>
-    Content ${listGeneralPost[postObject].content} <br> 
-    Category ${listGeneralPost[postObject].category} <br> 
-    State ${listGeneralPost[postObject].state} <br><br>`
+
+  listUserPost.forEach(listUserPost => {
+    //console.log(postObject);
+
+    //formateando fecha
+    let date = listUserPost.date;
+    date = new Date(date);
+
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    let newDate = day + '/' + month + '/' + year;
+
+    let output = `<div class = "${listUserPost.id} post panel-login">
+    <div class="row">
+      <div class="col-10">
+        <h5 class="card-title">${listUserPost.title}</h5>
+      </div>
+      <div class="col-2 text-right">
+        <div class="btn-group">
+        <button type="button" class="btn btn-light dropdown-toggle no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-ellipsis-v"></i>
+        </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button class="${listUserPost.id} dropdown-item" type="button" id="edit"><i class="fas fa-edit"></i> Editar</button>
+            <button class="${listUserPost.id} dropdown-item" type="button" id="delete"><i class="fas fa-trash-alt"></i> Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="category"><i class="far fa-folder-open"></i> ${listUserPost.category}</span>
+    <span class="date"><i class="far fa-calendar-alt"></i> ${newDate}</span>
+    <hr>
+    <img class="card-img-top" src="http://images.estampas.com/2012/07/01/mascotas.jpg.525.0.thumb" width="40" height="350">
+    <p class="card-text">${listUserPost.content}</p>     
+    <div class = "buttonSel">
+    <button class = "${listUserPost.id} btn btn-light col-sm-3" id="coment"><i class="far fa-comment-alt"></i> Comentar</button>`;
+    if (listUserPost.likes > 0) {
+      output += `<button class = "${listUserPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listUserPost.id}" class="badge badge-success">${listUserPost.likes}</span></button>
+      </div>
+      </div>`;
+    } else {
+      output += `<button class = "${listUserPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listUserPost.id}" class="badge badge-success hidden">${listUserPost.likes}</span></button>
+      </div>
+      </div>`;
+    }
+
+    showPostElement.innerHTML += output;
+
   });
 }
 const userPost = (listUserPost) => {
@@ -115,21 +163,35 @@ const userPost = (listUserPost) => {
     let newDate = day + '/' + month + '/' + year;
 
     let output = `<div class = "${listUserPost.id} post panel-login">
-    <h5 class="card-title">${listUserPost.title}</h5>
+    <div class="row">
+      <div class="col-10">
+        <h5 class="card-title">${listUserPost.title}</h5>
+      </div>
+      <div class="col-2 text-right">
+        <div class="btn-group">
+        <button type="button" class="btn btn-light dropdown-toggle no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-ellipsis-v"></i>
+        </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button class="${listUserPost.id} dropdown-item" type="button" id="edit"><i class="fas fa-edit"></i> Editar</button>
+            <button class="${listUserPost.id} dropdown-item" type="button" id="delete"><i class="fas fa-trash-alt"></i> Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <span class="category"><i class="far fa-folder-open"></i> ${listUserPost.category}</span>
     <span class="date"><i class="far fa-calendar-alt"></i> ${newDate}</span>
     <hr>
     <img class="card-img-top" src="http://images.estampas.com/2012/07/01/mascotas.jpg.525.0.thumb" width="40" height="350">
     <p class="card-text">${listUserPost.content}</p>     
     <div class = "buttonSel">
-    <button class = "${listUserPost.id} btn btn-light col-sm-3" id="edit">Editar <i class="fas fa-edit"></i></button>
-    <button class = "${listUserPost.id} btn btn-light col-sm-3" id="delete">Eliminar <i class="fas fa-trash-alt"></i></button>`;
+    <button class = "${listUserPost.id} btn btn-light col-sm-3" id="coment"><i class="far fa-comment-alt"></i> Comentar</button>`;
     if (listUserPost.likes > 0) {
-      output += `<button class = "${listUserPost.id} btn btn-light col-sm-3" id="like">Me gusta <i class="far fa-thumbs-up"></i> <span id="badge-${listUserPost.id}" class="badge badge-success">${listUserPost.likes}</span></button>
+      output += `<button class = "${listUserPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listUserPost.id}" class="badge badge-success">${listUserPost.likes}</span></button>
       </div>
       </div>`;
     } else {
-      output += `<button class = "${listUserPost.id} btn btn-light col-sm-3" id="like">Me gusta <i class="far fa-thumbs-up"></i> <span id="badge-${listUserPost.id}" class="badge badge-success hidden">${listUserPost.likes}</span></button>
+      output += `<button class = "${listUserPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listUserPost.id}" class="badge badge-success hidden">${listUserPost.likes}</span></button>
       </div>
       </div>`;
     }
@@ -156,12 +218,13 @@ window.onload = () => {
 
     userPost(listUserPost);
   }
+  showPostPublic(callBack);
 
   firebase.auth().onAuthStateChanged(function (user) {
 
     if (user) {
       postData.uid = user.uid;
-      showPost(callBack);
+      //showPost(callBack);
     }
   });
 
@@ -173,8 +236,8 @@ window.onload = () => {
   //slideUp() funcion de jquery - oculta div
   $('#hidden-form').slideDown('slow');
   $('#close-create').show('fade', 500);
-
-  btnEditPost.style.display = 'none';
+  
+  //btnEditPost.style.display = 'none';
 })
 
 
@@ -231,8 +294,11 @@ showPostElement.addEventListener('click', (event) => {
     showPostElement.style.display = 'none';
     btnAddPost.style.display = 'none';
 
-    console.log(postSelected[0].title);
-
+    hiddenForm.style.display = 'block';
+    btnEditPost.style.display = 'block';
+     
+     console.log(postSelected[0].title);
+     
 
     inputTitle.value = postSelected[0].title;
     inputContent.value = postSelected[0].content;
@@ -309,7 +375,15 @@ buttonsCategory.addEventListener('click', (event) => {
 })
 
 myPosts.addEventListener('click', () => {
-  containerMyPosts.style.display = 'block';
-  container.style.display = 'none';
+  //containerMyPosts.style.display = 'block';
+  //container.style.display = 'none';
+
+  const callBack = (result) => {
+    listUserPost = result;
+    console.log(result);
+
+  userPost(listUserPost);
+  }
+  showPost(callBack);
 })
 
