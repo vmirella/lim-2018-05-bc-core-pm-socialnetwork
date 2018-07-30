@@ -110,60 +110,8 @@ window.likePost = (idPost, uid, likeBadge) => {
 	});
 }
 
-window.sortPost = (posts) => {
-	let arrPost = [];
-	let keyPost = Object.keys(posts);
-	arrPost = Object.values(posts)
-	for(let i= 0;i<keyPost.length;i++){
-		arrPost[i].id=keyPost[i]
-	}
-	arraPost = arrPost.sort((a, b) => { return a.date - b.date })
-
-	return arraPost;
-}
-window.showPost = (cb) => {
-	firebase.database().ref('/posts/').once('value').then((value) => {
-		cb(sortPost(value.val()));
-	})
-	
-}
-
-window.showMyPost = (uid,cb) => {
-	firebase.database().ref('/posts/').once('value').then((value) => {
-		const val=Object.values(value.val())
-		cb(sortPost(value.val()));
-	})
-}
-
-window.filterPost = (category,cb) => {
-	firebase.database().ref('/posts/').once('value').then((value) => {
-		const posts = value.val();
-
-		let arrPost = [];
-		let keyPost = Object.keys(posts);
-		arrPost = Object.values(posts)
-		arrPost = arrPost.map(el=>{ 
-			let i =0;
-			el.id = keyPost[i]
-			i ++;
-			return el;
-		  })
-		arraPost = arrPost.sort((a, b) => { return a.date - b.date });
-		arraPost = arrPost.filter(post =>{ 
-			return post.category === category;
-		})
-
-		cb(arraPost)
-	})
-}
-
-window.getMyPost = (uid)=>{
-	firebase.database().ref('posts').orderByChild('date').on('value');
-}
-
-
 window.sortPosts = (posts)=>{
-	return posts.sort((a, b) => { return b.date - a.date });
+	return posts.sort((a, b) => { return b.date < a.date });
   }
   
 window.filterPosts = (postSorted, filterBy, valueFilter) => {

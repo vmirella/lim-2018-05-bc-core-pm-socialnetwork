@@ -12,7 +12,7 @@ app = firebase.initializeApp(config);
 const db = firebase.firestore(app);
 
 const buttonLogOut = document.getElementById('logOut');
-const optCategory = document.getElementById('optCategory');
+const optCategory = document.getElementById('opt-category');
 const optState = document.getElementById('optState');
 const inputTitle = document.getElementById('inputTitle');
 const contentImagen = document.getElementById('contentImagen');
@@ -25,11 +25,15 @@ const showPostElement = document.getElementById('showPost');
 const dataPost = document.getElementById('dataPost');
 const closeCreate = document.getElementById('close-create');
 const buttonsCategory = document.getElementById('buttons-category');
+const buttonsCategoryPost = document.getElementById('buttons-category-post');
 const showCategories = document.getElementById('show-categories');
 const myPosts = document.getElementById('my-posts');
-const containerMyPosts = document.getElementsByClassName('container-my-post')[0]
+const containerPost = document.getElementsByClassName('container-public-post')[0]
 const container = document.getElementsByClassName('container')[0]
 const hiddenForm = document.getElementById('hidden-form');
+const inputElement = document.getElementById('input-element');
+const searchButton = document.getElementById('search-button');
+const searchButtonPost = document.getElementById('search-button-post');
 
 let typePost = 'publico';
 let flagLateralMenu = 1;
@@ -110,17 +114,6 @@ const postPublic = (listUserPost) => {
       <div class="col-10">
         <h5 class="card-title">${listUserPost.title}</h5>
       </div>
-      <div class="col-2 text-right">
-        <div class="btn-group">
-        <button type="button" class="btn btn-light dropdown-toggle no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-ellipsis-v"></i>
-        </button>
-          <div class="dropdown-menu dropdown-menu-right">
-            <button class="${listUserPost.id} dropdown-item" type="button" id="edit"><i class="fas fa-edit"></i> Editar</button>
-            <button class="${listUserPost.id} dropdown-item" type="button" id="delete"><i class="fas fa-trash-alt"></i> Eliminar</button>
-          </div>
-        </div>
-      </div>
     </div>
     <span class="category"><i class="far fa-folder-open"></i> ${listUserPost.category}</span>
     <span class="date"><i class="far fa-calendar-alt"></i> ${newDate}</span>
@@ -145,12 +138,12 @@ const postPublic = (listUserPost) => {
 }
 const userPost = (listUserPost) => {
 
-  postsKeys = listUserPost.id;
+  //postsKeys = listUserPost.id;
   console.log(listUserPost);
 
 
   listUserPost.forEach(listUserPost => {
-    //console.log(postObject);
+    console.log(listUserPost.id);
 
     //formateando fecha
     let date = listUserPost.date;
@@ -203,22 +196,16 @@ const userPost = (listUserPost) => {
 
 let listUserPost = {};
 
-
-//Category ${listUserPost[postObject].category} <br> 
-//State ${listUserPost[postObject].state} <br>
-
-
-
-
-
 window.onload = () => {
+  buttonsCategoryPost.style.display = 'block';
+
   const callBack = (result) => {
     listUserPost = result;
     console.log(result);
 
-    userPost(listUserPost);
+    postPublic(listUserPost);
   }
-  showPostPublic(callBack);
+  showPosts(null, null, callBack);
 
   firebase.auth().onAuthStateChanged(function (user) {
 
@@ -230,30 +217,20 @@ window.onload = () => {
 
   btnEditPost.style.display = 'none';
 
- }
+}
 
- inputTitle.addEventListener('focus', () => {
+inputTitle.addEventListener('focus', () => {
   //slideUp() funcion de jquery - oculta div
   $('#hidden-form').slideDown('slow');
   $('#close-create').show('fade', 500);
-  
+
   //btnEditPost.style.display = 'none';
 })
-
-
-const cb = (result) =>{
-  console.log(result);
-}
-const cb1 = (result) =>{
-  console.log(result);
-}
-showMyPosts(postData,'category','Alimentación',cb);
-showPosts('category','Salud',cb1);
 
 let idPost = '';//Guardar id post
 
 btnAddPost.addEventListener('click', () => {
-  
+
   postData.title = inputTitle.value;
   postData.image = '';
   postData.content = inputContent.value;
@@ -276,13 +253,13 @@ showPostElement.addEventListener('click', (event) => {
   postClassName = event.target.className;
   postClassName = postClassName.split(' ');
 
-  //console.log(listUserPost);
+  console.log(postClassName);
 
   const postSelected = listUserPost.filter(post => {
     return post.id === postClassName[0];
   })
 
-
+  console.log(postClassName);
   console.log(postSelected);
 
   console.log(postClassName[0]);
@@ -296,9 +273,9 @@ showPostElement.addEventListener('click', (event) => {
 
     hiddenForm.style.display = 'block';
     btnEditPost.style.display = 'block';
-     
-     console.log(postSelected[0].title);
-     
+
+    console.log(postSelected[0].title);
+
 
     inputTitle.value = postSelected[0].title;
     inputContent.value = postSelected[0].content;
@@ -343,47 +320,52 @@ btnEditPost.addEventListener('click', () => {
   location.reload();
 })
 
-buttonsCategory.addEventListener('click', (event) => {
+buttonsCategoryPost.addEventListener('click', (event) => {
+  showPostElement.innerHTML = '';
   const callBack = (result) => {
-    console.log(result)
+    postPublic(result);
+  }
+  const category = event.target.innerText;
+  console.log(category);
+  
+  if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
+    showPosts('category', category, callBack);
+  }
+})
+
+buttonsCategory.addEventListener('click', (event) => {
+  showPostElement.innerHTML = '';
+  const callBack = (result) => {
     userPost(result);
   }
-  classCategory = event.target.className.split(' ')[0];
-  switch (classCategory) {
-    case "category-salud":
-      filterPost('Salud', callBack);
-      break;
-    case "category-alimentacion":
-      filterPost('Alimentación', callBack);
-      break;
-    case "category-adopcion":
-      filterPost('Adopción', callBack);
-      break;
-    case "category-mascotas-perdidas":
-      filterPost('Mascotas Perdidas', callBack);
-      break;
-    case "category-sos":
-      filterPost('SOS', callBack);
-      break;
-    case"category-sos":
-      filterPost('Entretenimiento', callBack);
-      break;
+  const category = event.target.innerText;
+  console.log(category);
+  
+  if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
+    showMyPosts(postData,'category', category, callBack);
   }
-  event.preventDefault();
-
-  console.log(classCategory);
 })
+
 
 myPosts.addEventListener('click', () => {
   //containerMyPosts.style.display = 'block';
   //container.style.display = 'none';
+  showPostElement.innerHTML = '';
+  buttonsCategoryPost.style.display = 'none';
+  buttonsCategory.style.display = 'block';
 
   const callBack = (result) => {
     listUserPost = result;
     console.log(result);
 
-  userPost(listUserPost);
+    userPost(listUserPost);
   }
-  showPost(callBack);
+  //showPost(callBack)
+  showMyPosts(postData, null, null, callBack);
+  //buttonsCategoryPost
+})
+searchButtonPost.addEventListener('input', () => {
+  const inputValue = inputElement.value;
+  showMyPosts(postData,'title', inputValue, callBack);
 })
 
