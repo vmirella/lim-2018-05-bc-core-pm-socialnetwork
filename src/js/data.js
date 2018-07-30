@@ -117,10 +117,26 @@ window.sortPosts = (posts) => {
 window.filterPosts = (postSorted, filterBy, valueFilter) => {
 	let postFiltered = null;
 	filterBy !== null && valueFilter !== null
-		? postFiltered = postSorted.filter(post => post[filterBy] === valueFilter)
+		? postFiltered = postSorted.filter(post => post[filterBy].toUpperCase().indexOf(valueFilter.toUpperCase()) !== -1)
+			// === valueFilter)
 		: postFiltered = postSorted;
 	return postFiltered;
 }
+/*
+window.filterUsers = (users, search) => {
+    if (search !== '') {
+
+        const filterUsersArray = users.filter(user => {
+
+            return user.name.toUpperCase().indexOf(search.toUpperCase()) !== -1;//Filtrar (case insensitive)
+        })
+        return filterUsersArray;
+
+    } else {
+        return users;
+    }
+};
+*/
 
 window.showMyPosts = (dataUser, filterBy, valueFilter, cb) => {
 	return getPostList()

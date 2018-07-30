@@ -28,8 +28,6 @@ const buttonsCategory = document.getElementById('buttons-category');
 const buttonsCategoryPost = document.getElementById('buttons-category-post');
 const showCategories = document.getElementById('show-categories');
 const myPosts = document.getElementById('my-posts');
-const containerPost = document.getElementsByClassName('container-public-post')[0]
-const container = document.getElementsByClassName('container')[0]
 const hiddenForm = document.getElementById('hidden-form');
 const inputElement = document.getElementById('input-element');
 const searchButton = document.getElementById('search-button');
@@ -90,17 +88,11 @@ let postData = {
 
 };
 
-const postPublic = (listUserPost) => {
-
-  postsKeys = listUserPost.id;
-  console.log(listUserPost);
-
-
-  listUserPost.forEach(listUserPost => {
-    //console.log(postObject);
-
+const postPublic = (listPost) => {
+  postsKeys = listPost.id;
+  listPost.forEach(listPost => {
     //formateando fecha
-    let date = listUserPost.date;
+    let date = listPost.date;
     date = new Date(date);
 
     let year = date.getFullYear();
@@ -109,25 +101,25 @@ const postPublic = (listUserPost) => {
 
     let newDate = day + '/' + month + '/' + year;
 
-    let output = `<div class = "${listUserPost.id} post panel-login">
+    let output = `<div class = "${listPost.id} post panel-login">
     <div class="row">
       <div class="col-10">
-        <h5 class="card-title">${listUserPost.title}</h5>
+        <h5 class="card-title">${listPost.title}</h5>
       </div>
     </div>
-    <span class="category"><i class="far fa-folder-open"></i> ${listUserPost.category}</span>
+    <span class="category"><i class="far fa-folder-open"></i> ${listPost.category}</span>
     <span class="date"><i class="far fa-calendar-alt"></i> ${newDate}</span>
     <hr>
     <img class="card-img-top" src="http://images.estampas.com/2012/07/01/mascotas.jpg.525.0.thumb" width="40" height="350">
-    <p class="card-text">${listUserPost.content}</p>     
+    <p class="card-text">${listPost.content}</p>     
     <div class = "buttonSel">
-    <button class = "${listUserPost.id} btn btn-light col-sm-3" id="coment"><i class="far fa-comment-alt"></i> Comentar</button>`;
-    if (listUserPost.likes > 0) {
-      output += `<button class = "${listUserPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listUserPost.id}" class="badge badge-success">${listUserPost.likes}</span></button>
+    <button class = "${listPost.id} btn btn-light col-sm-3" id="coment"><i class="far fa-comment-alt"></i> Comentar</button>`;
+    if (listPost.likes > 0) {
+      output += `<button class = "${listPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listPost.id}" class="badge badge-success">${listPost.likes}</span></button>
       </div>
       </div>`;
     } else {
-      output += `<button class = "${listUserPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listUserPost.id}" class="badge badge-success hidden">${listUserPost.likes}</span></button>
+      output += `<button class = "${listPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listPost.id}" class="badge badge-success hidden">${listPost.likes}</span></button>
       </div>
       </div>`;
     }
@@ -136,17 +128,10 @@ const postPublic = (listUserPost) => {
 
   });
 }
-const userPost = (listUserPost) => {
-
-  //postsKeys = listUserPost.id;
-  console.log(listUserPost);
-
-
-  listUserPost.forEach(listUserPost => {
-    console.log(listUserPost.id);
-
+const userPost = (listPost) => {
+  listPost.forEach(listPost => {
     //formateando fecha
-    let date = listUserPost.date;
+    let date = listPost.date;
     date = new Date(date);
 
     let year = date.getFullYear();
@@ -155,10 +140,10 @@ const userPost = (listUserPost) => {
 
     let newDate = day + '/' + month + '/' + year;
 
-    let output = `<div class = "${listUserPost.id} post panel-login">
+    let output = `<div class = "${listPost.id} post panel-login">
     <div class="row">
       <div class="col-10">
-        <h5 class="card-title">${listUserPost.title}</h5>
+        <h5 class="card-title">${listPost.title}</h5>
       </div>
       <div class="col-2 text-right">
         <div class="btn-group">
@@ -166,25 +151,25 @@ const userPost = (listUserPost) => {
         <i class="fas fa-ellipsis-v"></i>
         </button>
           <div class="dropdown-menu dropdown-menu-right">
-            <button class="${listUserPost.id} dropdown-item" type="button" id="edit"><i class="fas fa-edit"></i> Editar</button>
-            <button class="${listUserPost.id} dropdown-item" type="button" id="delete"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            <button class="${listPost.id} dropdown-item" type="button" id="edit"><i class="fas fa-edit"></i> Editar</button>
+            <button class="${listPost.id} dropdown-item" type="button" id="delete"><i class="fas fa-trash-alt"></i> Eliminar</button>
           </div>
         </div>
       </div>
     </div>
-    <span class="category"><i class="far fa-folder-open"></i> ${listUserPost.category}</span>
+    <span class="category"><i class="far fa-folder-open"></i> ${listPost.category}</span>
     <span class="date"><i class="far fa-calendar-alt"></i> ${newDate}</span>
     <hr>
     <img class="card-img-top" src="http://images.estampas.com/2012/07/01/mascotas.jpg.525.0.thumb" width="40" height="350">
-    <p class="card-text">${listUserPost.content}</p>     
+    <p class="card-text">${listPost.content}</p>     
     <div class = "buttonSel">
-    <button class = "${listUserPost.id} btn btn-light col-sm-3" id="coment"><i class="far fa-comment-alt"></i> Comentar</button>`;
-    if (listUserPost.likes > 0) {
-      output += `<button class = "${listUserPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listUserPost.id}" class="badge badge-success">${listUserPost.likes}</span></button>
+    <button class = "${listPost.id} btn btn-light col-sm-3" id="coment"><i class="far fa-comment-alt"></i> Comentar</button>`;
+    if (listPost.likes > 0) {
+      output += `<button class = "${listPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listPost.id}" class="badge badge-success">${listPost.likes}</span></button>
       </div>
       </div>`;
     } else {
-      output += `<button class = "${listUserPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listUserPost.id}" class="badge badge-success hidden">${listUserPost.likes}</span></button>
+      output += `<button class = "${listPost.id} btn btn-light col-sm-3" id="like"><i class="far fa-thumbs-up"></i> Me gusta <span id="badge-${listPost.id}" class="badge badge-success hidden">${listPost.likes}</span></button>
       </div>
       </div>`;
     }
@@ -194,16 +179,12 @@ const userPost = (listUserPost) => {
   });
 }
 
-let listUserPost = {};
+let listPost = {};
 
 window.onload = () => {
-  buttonsCategoryPost.style.display = 'block';
-
   const callBack = (result) => {
-    listUserPost = result;
-    console.log(result);
-
-    postPublic(listUserPost);
+    listPost = result;
+    postPublic(listPost);
   }
   showPosts(null, null, callBack);
 
@@ -249,34 +230,19 @@ btnAddPost.addEventListener('click', () => {
 let postClassName = null;
 
 showPostElement.addEventListener('click', (event) => {
-
   postClassName = event.target.className;
   postClassName = postClassName.split(' ');
-
-  console.log(postClassName);
-
-  const postSelected = listUserPost.filter(post => {
+  const postSelected = listPost.filter(post => {
     return post.id === postClassName[0];
   })
-
   console.log(postClassName);
-  console.log(postSelected);
-
-  console.log(postClassName[0]);
-
+  
   if (event.target.nodeName === "BUTTON" && event.target.id == 'edit') {
-
-
     dataPost.style.display = 'block';
     showPostElement.style.display = 'none';
     btnAddPost.style.display = 'none';
-
     hiddenForm.style.display = 'block';
     btnEditPost.style.display = 'block';
-
-    console.log(postSelected[0].title);
-
-
     inputTitle.value = postSelected[0].title;
     inputContent.value = postSelected[0].content;
     optCategory.value = postSelected[0].category;
@@ -326,8 +292,6 @@ buttonsCategoryPost.addEventListener('click', (event) => {
     postPublic(result);
   }
   const category = event.target.innerText;
-  console.log(category);
-
   if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
     showPosts('category', category, callBack);
   }
@@ -339,8 +303,6 @@ buttonsCategory.addEventListener('click', (event) => {
     userPost(result);
   }
   const category = event.target.innerText;
-  console.log(category);
-
   if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
     showMyPosts(postData, 'category', category, callBack);
   }
@@ -348,24 +310,31 @@ buttonsCategory.addEventListener('click', (event) => {
 
 
 myPosts.addEventListener('click', () => {
-  //containerMyPosts.style.display = 'block';
-  //container.style.display = 'none';
   showPostElement.innerHTML = '';
+  inputElement.value = ''
   buttonsCategoryPost.style.display = 'none';
   buttonsCategory.style.display = 'block';
-
+  searchButtonPost.style.display = 'none';
+  searchButton.style.display = 'block';
   const callBack = (result) => {
-    listUserPost = result;
-    console.log(result);
-
-    userPost(listUserPost);
+    listPost = result;
+    userPost(listPost);
   }
-  //showPost(callBack)
   showMyPosts(postData, null, null, callBack);
-  //buttonsCategoryPost
 })
-searchButtonPost.addEventListener('input', () => {
+searchButtonPost.addEventListener('click', () => {
+  showPostElement.innerHTML = ''; 
+  const callBack = (result) => {
+    postPublic(result);
+  }
   const inputValue = inputElement.value;
-  showMyPosts(postData, 'title', inputValue, callBack);
+  showPosts('title', inputValue, callBack);
 })
-
+searchButton.addEventListener('click', () => {
+  showPostElement.innerHTML = ''; 
+  const callBack = (result) => {
+    userPost(result);
+  }
+  const inputValue = inputElement.value;
+  showPosts('title', inputValue, callBack);
+})
