@@ -12,14 +12,17 @@
 </head>
 
 <body>
-  <nav class="navbar fixed-top navbar-expand-md navbar-light">
-    <span class="logo-home"><i class="fas fa-paw"></i></span><a class="navbar-brand" href="#">SoyTuPata</a>
+  <nav class="navbar fixed-top navbar-expand-md navbar-light" style="background-color: #35CD97">
+    <span class="logo-home">
+      <i class="fas fa-paw"></i>
+    </span>
+    <a class="navbar-brand" href="#">SoyTuPata</a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="navbar-collapse collapse">
+    <div class="navbar-collapse collapse" id="navbarsExample04" style>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="home.html">Inicio
@@ -27,7 +30,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Mi Perfil</a>
+          <a id='my-posts' class="nav-link" href="#">Mi Perfil</a>
         </li>
         <li class="nav-item">
           <a id="logOut" class="nav-link" href="#">Salir</a>
@@ -35,24 +38,32 @@
       </ul>
       <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Buscar">
+          <input type="text" id="input-element" class="form-control" placeholder="Buscar">
           <span class="input-group-btn">
-            <button class="btn btn-light" type="button"><img src="img/search.png" alt="" class="search-img"></button>
+            <button class="btn btn-light" id="search-button" type="button">
+              <img src="img/search.png" alt="" class="search-img">
+            </button>
+            <button class="btn btn-light" id="search-button-post" type="button">
+              <img src="img/search.png" alt="" class="search-img">
+            </button>
           </span>
         </div>
       </div>
     </div>
+    </div>
   </nav>
   <div class="container container-new-post">
     <div class="row justify-content-center div-center">
-      
-      <div class="col-md-7">
+
+      <div class="col-md-7" id="container-to-post">
         <div class="row">
           <div id="dataPost" class="col-sm-12 div-form">
             <div class="post form-add-post">
-              <a href="#" id="close-create" class="close hidden"><i class="fas fa-window-close"></i></a>
-              <input type="text" id="inputTitle" class="form-control" placeholder="¿Que tema quieres compartir?">
-              
+              <a href="#" id="close-create" class="close hidden">
+                <i class="fas fa-window-close"></i>
+              </a>
+              <input type="text" id="inputTitle" class="form-control" placeholder="¿Qué  tema quieres compartir?">
+
               <div id="hidden-form" class="hidden">
                 <div>
                   <div id="contentImagen"></div>
@@ -66,30 +77,31 @@
                     <div class="form-group row">
                       <label for="inputEmail3" class="col-sm-3 col-form-label font-weight-bold">Categoría</label>
                       <div class="col-sm-9">
-                        <select id="optCategory" class="custom-select form-control">
+                        <select id="opt-category" class="custom-select form-control">
                           <option value="Salud">Salud</option>
                           <option value="Alimentación">Alimentación</option>
                           <option value="Adopción">Adopción</option>
-                          <option value="Mascotas perdidas">Mascotas perdidas</option>
+                          <option value="Mascotas pérdidas">Mascotas pérdidas</option>
+                          <option value="SOS">SOS</option>
                           <option value="Entretenimiento">Entretenimiento</option>
                         </select>
                       </div>
                     </div>
                   </div>
                   <div class="col-sm-6">
-                      <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-3 col-form-label font-weight-bold">Estado</label>
-                        <div class="col-sm-9">
-                          <select id="optState" class="custom-select form-control">
-                            <option value="publico">Público</option>
-                            <option value="privado">Privado</option>
-                          </select>
-                        </div>
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-3 col-form-label font-weight-bold">Estado</label>
+                      <div class="col-sm-9">
+                        <select id="optState" class="custom-select form-control">
+                          <option value="publico">Público</option>
+                          <option value="privado">Privado</option>
+                        </select>
                       </div>
                     </div>
+                  </div>
                 </div>
-                <button id="addPost" class="btn btn-success btn-form-color">Publicar</button>
-                <button id="editPost" class="btn btn-success btn-form-color">Actualizar</button>
+                <button id="addPost" class="btn btn-success">Publicar</button>
+                <button id="editPost" class="btn btn-success">Actualizar</button>
               </div>
             </div>
           </div>
@@ -97,22 +109,52 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6">
+      <div class="col-md-3 col-sm-6" id="category-my-post">
         <div class="lateral-menu">
           <h5 class="d-none d-sm-none d-md-block d-lg-block d-xl-block">Categorías</h5>
           <button class="btn btn-success d-block d-sm-block d-md-none d-lg-none d-xl-none float-right" id="show-categories">Categorías</button>
           <ul id="buttons-category" class="list-group custom-list">
-            <li class="list-group-item"><a href="#" id="category-salud">Salud</a></li>
-            <li class="list-group-item"><a href="#" id="category-alimentacion">Alimentación</a></li>
-            <li class="list-group-item"><a href="#" id="category-adopcion">Adopción</a></li>
-            <li class="list-group-item"><a href="#" id="category-mascotas-perdidas">Mascotas Perdidas</a></li>
-            <li class="list-group-item"><a href="#" id="category-sos">SOS</a></li>
-            <li class="list-group-item"><a href="#" id="category-entretenimiento">Entretenimiento</a></li>
+            <li class="category-salud list-group-item" value="Salud">
+              <a href="#">Salud</a>
+            </li>
+            <li class="category-alimentacion list-group-item" value="Alimentación">
+              <a href="#">Alimentación</a>
+            </li>
+            <li class="category-adopcion list-group-item" value="Adopción">
+              <a href="#">Adopción</a>
+            </li>
+            <li class="category-mascotas-perdidas list-group-item" value="Mascotas pérdidas">
+              <a href="#">Mascotas pérdidas</a>
+            </li>
+            <li class="category-sos list-group-item" value="SOS">
+              <a href="#">SOS</a>
+            </li>
+            <li class="category-entretenimiento list-group-item" value="Entretenimiento">
+              <a href="#">Entretenimiento</a>
+            </li>
+          </ul>
+          <ul id="buttons-category-post" class="list-group custom-list">
+            <li class="category-salud list-group-item" value="Salud">
+              <a href="#">Salud</a>
+            </li>
+            <li class="category-alimentacion list-group-item" value="Alimentación">
+              <a href="#">Alimentación</a>
+            </li>
+            <li class="category-adopcion list-group-item" value="Adopción">
+              <a href="#">Adopción</a>
+            </li>
+            <li class="category-mascotas-perdidas list-group-item" value="Mascotas pérdidas">
+              <a href="#">Mascotas pérdidas</a>
+            </li>
+            <li class="category-sos list-group-item" value="SOS">
+              <a href="#">SOS</a>
+            </li>
+            <li class="category-entretenimiento list-group-item" value="Entretenimiento">
+              <a href="#">Entretenimiento</a>
+            </li>
           </ul>
         </div>
       </div>
-      
-      
     </div>
   </div>
 
