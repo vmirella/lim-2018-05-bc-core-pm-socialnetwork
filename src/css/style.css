@@ -175,6 +175,9 @@ body {
 .container-new-post {
 	margin-top: 70px;
 }
+.container-my-post{
+	display: none;
+}
 #showPost{
 	/*display: flex;
 	flex-direction: column;

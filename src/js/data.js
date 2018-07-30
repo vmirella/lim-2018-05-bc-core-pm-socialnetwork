@@ -67,6 +67,7 @@ window.createPost = (postData) => {
 	const newPostKey = firebase.database().ref().child('posts').push().key;
 	// Registrar en el objeto posts y user-post la nueva publicación
 	const updates = {};
+	postData.id=newPostKey;
 	updates['/posts/' + newPostKey] = postData;
 	updates['/user-posts/' + postData.uid + '/' + newPostKey] = postData;
 	firebase.database().ref().update(updates);
@@ -108,11 +109,6 @@ window.likePost = (idPost, uid, likeBadge) => {
 		likeBadge.classList.remove("hidden");
 	});
 }
-<<<<<<< HEAD
-/*
-window.showPost = (uid, cb) => {
-=======
->>>>>>> bef3fb94765bba7f1c7e3d9353790c3b98a71da0
 
 window.sortPost = (posts) => {
 	let arrPost = [];
@@ -127,6 +123,14 @@ window.sortPost = (posts) => {
 }
 window.showPost = (cb) => {
 	firebase.database().ref('/posts/').once('value').then((value) => {
+		cb(sortPost(value.val()));
+	})
+	
+}
+
+window.showMyPost = (uid,cb) => {
+	firebase.database().ref('/posts/').once('value').then((value) => {
+		const val=Object.values(value.val())
 		cb(sortPost(value.val()));
 	})
 }
@@ -149,33 +153,49 @@ window.filterPost = (category,cb) => {
 			return post.category === category;
 		})
 
-<<<<<<< HEAD
-}*/
-
-window.sortPost = (posts) =>{
-  let arrPost = [];
-  let keyPost = Object.keys(posts);
-  arrPost = Object.values(posts)
-  arrPost = arrPost.map(el=>{ 
-    let i =0;
-    el.id = keyPost[i]
-    i ++;
-    return el;
-  })
-  arraPost = arrPost.sort((a,b)=>{return b.date - a.date})
- 
-  return arraPost; 
-}
-window.showPost = (cb) => {
-  firebase.database().ref('/posts/').once('value').then((value) => {
-    cb(sortPost(value.val()));
-  })
-
-=======
 		cb(arraPost)
 	})
->>>>>>> bef3fb94765bba7f1c7e3d9353790c3b98a71da0
 }
+
+window.getMyPost = (uid)=>{
+	firebase.database().ref('posts').orderByChild('date').on('value');
+}
+
+
+window.sortPosts = (posts)=>{
+	return posts.sort((a, b) => { return b.date - a.date });
+  }
+  
+window.filterPosts = (postSorted, filterBy, valueFilter) => {
+	let postFiltered = null;
+   filterBy !== null && valueFilter !== null
+   ? postFiltered  = postSorted.filter(post => post[filterBy] === valueFilter)
+   : postFiltered = postSorted;
+   return postFiltered;
+  }
+  
+window.showMyPosts = (dataUser,filterBy, valueFilter,cb) => {
+	return getPostList()
+	  .then(post => {
+		const posts = Object.values(post.val());
+		const postSorted = sortPosts(posts);
+		const myPosts = filterPosts(postSorted,'uid',dataUser.uid);    
+		const postsFiltered = filterPosts(myPosts,filterBy,valueFilter);
+		cb(postsFiltered);
+	  });
+  }
+window.showPosts = (filterBy, valueFilter,cb) => {
+	return getPostList()
+	  .then(post => {
+		const posts = Object.values(post.val());
+		const postSorted = sortPosts(posts);
+		const postPublic = filterPosts(postSorted,'state','publico');  
+		const postsFiltered = filterPosts(postPublic,filterBy,valueFilter);
+		cb(postsFiltered);
+	  });
+  }
+  
+
 /*window.showPost = (cb) => {
 	//al leer sin usar once(), los datos se vuelven a cargar al detectar un cambio en firebase
 	var dataPost = firebase.database().ref('/posts/');
