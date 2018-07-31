@@ -32,6 +32,8 @@ const hiddenForm = document.getElementById('hidden-form');
 const inputElement = document.getElementById('input-element');
 const searchButton = document.getElementById('search-button');
 const searchButtonPost = document.getElementById('search-button-post');
+const homeMenu = document.getElementById('home-menu');
+const profileMenu = document.getElementById('profile-menu');
 
 let typePost = 'publico';
 let flagLateralMenu = 1;
@@ -327,7 +329,8 @@ buttonsCategory.addEventListener('click', (event) => {
 
 myPosts.addEventListener('click', () => {
   flagPublicPrivate = 2;
-
+  homeMenu.classList.remove('active');
+  profileMenu.classList.add('active');
   showPostElement.innerHTML = '';
   inputElement.value = ''
   //buttonsCategoryPost.style.display = 'none';
