@@ -90,7 +90,7 @@ let postData = {
 };
 
 const postPublic = (listPost) => {
-  postsKeys = listPost.id;
+  //postsKeys = listPost.id;
   listPost.forEach(listPost => {
     //formateando fecha
     let date = listPost.date;
