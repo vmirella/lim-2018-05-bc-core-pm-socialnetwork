@@ -228,7 +228,7 @@ btnAddPost.addEventListener('click', () => {
   idPost = createPost(postData);
   //slideUp() funcion de jquery - oculta div
   $('#dataPost').slideUp('slow');
-  alert('se creo con exito')
+  alert('Se creó con éxito')
   location.reload();
 })
 let postClassName = null;
@@ -256,12 +256,18 @@ showPostElement.addEventListener('click', (event) => {
 
   if (event.target.nodeName === "BUTTON" && event.target.id == 'delete') {
 
-    const postContentElement = document.getElementsByClassName(postClassName[0])[0]
-
-    deletePost(postClassName[0], postData.uid);
-    alert('se eliminó post')
-
-    postContentElement.style.display = 'none';
+    const postContentElement = document.getElementsByClassName(postClassName[0])[0];
+    const confirmDelete = confirm('¿Estás seguro de eliminar la publicación?');
+    if (confirmDelete == true) {
+      deletePost(postClassName[0], postData.uid);
+      alert('Se eliminó la publicación');
+      postContentElement.style.display = 'none';
+    }
+    else {
+      return;
+    }
+    
+    
   }
 
   if (event.target.nodeName === "BUTTON" && event.target.id == 'like') {
