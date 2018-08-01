@@ -25,15 +25,15 @@ const showPostElement = document.getElementById('showPost');
 const dataPost = document.getElementById('dataPost');
 const closeCreate = document.getElementById('close-create');
 const buttonsCategory = document.getElementById('buttons-category');
-//const buttonsCategoryPost = document.getElementById('buttons-category-post');
 const showCategories = document.getElementById('show-categories');
 const myPosts = document.getElementById('my-posts');
 const hiddenForm = document.getElementById('hidden-form');
 const inputElement = document.getElementById('input-element');
 const searchButton = document.getElementById('search-button');
 const searchButtonPost = document.getElementById('search-button-post');
+const homeMenu = document.getElementById('home-menu');
+const profileMenu = document.getElementById('profile-menu');
 
-let typePost = 'publico';
 let flagLateralMenu = 1;
 let flagPost = 0; //1 crear post - 2 editar post
 let flagPublicPrivate = 1; //1 posts publicos - 2 mis posts
@@ -90,7 +90,7 @@ let postData = {
 };
 
 const postPublic = (listPost) => {
-  postsKeys = listPost.id;
+  //postsKeys = listPost.id;
   listPost.forEach(listPost => {
     //formateando fecha
     let date = listPost.date;
@@ -228,7 +228,7 @@ btnAddPost.addEventListener('click', () => {
   idPost = createPost(postData);
   //slideUp() funcion de jquery - oculta div
   $('#dataPost').slideUp('slow');
-  alert('se creo con exito')
+  alert('Se creó con éxito')
   location.reload();
 })
 let postClassName = null;
@@ -256,12 +256,18 @@ showPostElement.addEventListener('click', (event) => {
 
   if (event.target.nodeName === "BUTTON" && event.target.id == 'delete') {
 
-    const postContentElement = document.getElementsByClassName(postClassName[0])[0]
-
-    deletePost(postClassName[0], postData.uid);
-    alert('se eliminó post')
-
-    postContentElement.style.display = 'none';
+    const postContentElement = document.getElementsByClassName(postClassName[0])[0];
+    const confirmDelete = confirm('¿Estás seguro de eliminar la publicación?');
+    if (confirmDelete == true) {
+      deletePost(postClassName[0], postData.uid);
+      alert('Se eliminó la publicación');
+      postContentElement.style.display = 'none';
+    }
+    else {
+      return;
+    }
+    
+    
   }
 
   if (event.target.nodeName === "BUTTON" && event.target.id == 'like') {
@@ -290,17 +296,6 @@ btnEditPost.addEventListener('click', () => {
   location.reload();
 });
 
-/* buttonsCategoryPost.addEventListener('click', (event) => {
-  showPostElement.innerHTML = '';
-  const callBack = (result) => {
-    postPublic(result);
-  }
-  const category = event.target.innerText;
-  if (event.target.nodeName === 'LI' || event.target.nodeName === 'A') {
-    showPosts('category', category, callBack);
-  }
-}) */
-
 buttonsCategory.addEventListener('click', (event) => {
   if (flagPublicPrivate === 1) {
     showPostElement.innerHTML = '';
@@ -327,7 +322,8 @@ buttonsCategory.addEventListener('click', (event) => {
 
 myPosts.addEventListener('click', () => {
   flagPublicPrivate = 2;
-
+  homeMenu.classList.remove('active');
+  profileMenu.classList.add('active');
   showPostElement.innerHTML = '';
   inputElement.value = ''
   //buttonsCategoryPost.style.display = 'none';
@@ -351,6 +347,7 @@ searchButtonPost.addEventListener('click', () => {
 searchButton.addEventListener('click', () => {
   showPostElement.innerHTML = ''; 
   const callBack = (result) => {
+    console.log(result);
     userPost(result);
   }
   const inputValue = inputElement.value;
