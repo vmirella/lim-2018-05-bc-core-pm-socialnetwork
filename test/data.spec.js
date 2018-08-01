@@ -67,7 +67,7 @@ describe('data', () => {
   
 
   it('Debería editar un post con el titulo "Titulo de prueba"', (done) => {
-    editPost('-LIkuB5igQh_6do1qHgN', postData)
+    editPost('-LIh9tDQaDR2c2VPorwe', postData)
       .then(() => getPostList())
       .then((postList) => {
         const data = Object.entries(
