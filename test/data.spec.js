@@ -52,7 +52,22 @@ describe('data', () => {
     assert.isFunction(showPosts);
   });
 
-  describe('editPost(postId, postData)', () => {
+  describe('registerUserProfile(dataUser)', (done) => {
+    const dataUser = {
+      id: '3IJVjMTiXkZGlN3pwAomx2oOmIF2',
+      username: 'Usuario de prueba',
+      email: 'user@gmail.com',
+      picture: ''
+    }
+
+    it('Debería crear los datos de usuario con username "Usuario de prueba"', (done) => {
+      const result = registerUserProfile(dataUser);
+      assert.equal(result, true);
+      done();
+    });
+  });
+
+  describe('createPost(postData)', () => {
     let postData = {
       category: 'SOS',
       content: 'Proteger a los animales en peligro de extinción se ha convertido casi en una obligación en éstos últimos tiempos, ya que aunque hayamos progresado mucho social y tecnológicamente, también hemos dado un pequeño paso hacia atrás en cuanto a la protección del medio ambiente y de sus habitantes.',
@@ -63,25 +78,74 @@ describe('data', () => {
       state: 'publico',
       title: 'Proteger animales en peligro de extincion',
       uid: 'MfDWbdirEfWpJraJ4IOjJLWpqjy1'
-    }
-  
+    }  
 
-  it('Debería editar un post con el titulo "Titulo de prueba"', (done) => {
-    editPost('-LIh9tDQaDR2c2VPorwe', postData)
-      .then(() => getPostList())
-      .then((postList) => {
-        const data = Object.entries(
-          postList.val()
-        ).find(post => post[1].title === 'Titulo de prueba');
-        console.log(data);
-        assert.exists(data[1]); // verifica que exista algo en particular
-        assert.equal(data[1].title, 'Titulo de prueba');
-        done();
-      })
-      .catch((error) => {
-        done(error);
-      });
+    it('Debería crear un post con el titulo "Proteger animales en peligro de extincion"', (done) => {
+      const result = createPost(postData);
+      assert.equal(typeof result, 'string');
+      done();
+    });
   });
-});
+
+  describe('editPost(postId, postData)', () => {
+    let postData = {
+      category: 'SOS',
+      content: 'Proteger a los animales en peligro de extinción se ha convertido casi en una obligación en éstos últimos tiempos, ya que aunque hayamos progresado mucho social y tecnológicamente, también hemos dado un pequeño paso hacia atrás en cuanto a la protección del medio ambiente y de sus habitantes.',
+      date: 1532987413183,
+      id: '-LIh9tDQaDR2c2VPorwe',
+      image: "",
+      likes: 0,
+      state: 'publico',
+      title: 'Proteger animales en peligro de extincion test',
+      uid: 'MfDWbdirEfWpJraJ4IOjJLWpqjy1'
+    }  
+
+    it('Debería editar un post con el titulo "Proteger animales en peligro de extincion test"', (done) => {
+      const result = editPost('-LIh7yoAu1gm8cYseB3r', postData);
+      assert.equal(result, true);
+      done();
+    });
+  });
+
+  describe('getPostList()', () => {
+
+    it('Debería retornar un objeto con los post', (done) => {
+      const result = getPostList();
+      //result será un objeto con los post
+      //en caso de error result seria igual a null
+      assert.equal(typeof result, 'object');
+      done();
+    });
+  });
+
+  describe('deletePost(postId)', () => {
+
+    it('Debería eliminar un post con el postId "-LIh7yoAu1gm8cYseB3r"', (done) => {
+      const result = deletePost('-LIh7yoAu1gm8cYseB3r');
+      const posts = getPostList();
+      const data = Object.entries(posts).find(post => post[1] === '-LIh7yoAu1gm8cYseB3r');
+      assert.equal(data, null); //al no encontrarlo data es igual a null
+      done();
+    });
+  });
+
+  describe('likePost(idPost, uid, likeBadge)', () => {
+
+    //en construccion
+  });
+
+  describe('sortPosts(posts)', () => {
+
+    it('Debería retornar un objeto con los post ordenados', (done) => {
+      getPostList()
+        .then(post => {
+          const posts = Object.values(post.val());
+          const postSorted = sortPosts(posts);
+
+          assert.equal(typeof postSorted, 'object');
+          done();
+        });      
+    });
+  });
 
 });
