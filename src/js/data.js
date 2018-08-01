@@ -53,9 +53,11 @@ window.registerUserProfile = (dataUser) => {
 		email: dataUser.email,
 		picture: dataUser.picture
 	}, (error) => {
-		console.log(error)
-		console.log('error')
+		console.log(error);
+		console.log('error');
+		return false;
 	});
+	return true;
 }
 
 //Esta funcion permite relacionar al usuario con sus posts
@@ -77,13 +79,14 @@ window.editPost = (postId, postData) => {
 	updates['/posts/' + postId] = postData;
 	firebase.database().ref('/posts/' + postId).update(postData);
 	//return firebase.database().ref().update(updates);
+	return true;
 }
 
 //Lee los post para usarlos en el test
 window.getPostList = () => firebase.database().ref('posts').once('value');
 
 //Esta funcion permite eliminar posts
-window.deletePost = (postId, uid) => {
+window.deletePost = (postId) => {
 	firebase.database().ref('/posts/').child(postId).remove();
 }
 
