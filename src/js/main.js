@@ -354,5 +354,5 @@ searchButton.addEventListener('click', () => {
     userPost(result);
   }
   const inputValue = inputElement.value;
-  showPosts('title', inputValue, callBack);
+  shoMyPosts('title', inputValue, callBack);
 })
