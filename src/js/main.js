@@ -347,6 +347,7 @@ searchButtonPost.addEventListener('click', () => {
 searchButton.addEventListener('click', () => {
   showPostElement.innerHTML = ''; 
   const callBack = (result) => {
+    console.log(result);
     userPost(result);
   }
   const inputValue = inputElement.value;
