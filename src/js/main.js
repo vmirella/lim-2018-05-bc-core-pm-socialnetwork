@@ -86,7 +86,6 @@ let postData = {
   state: null,
   likes: null,
   comentary: null
-
 };
 
 const postPublic = (listPost) => {
@@ -273,35 +272,32 @@ showPostElement.addEventListener('click', (event) => {
     })
 
     swal({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      type: 'warning',
+      title: '¿Estás seguro de eliminar la publicación?',
+      //text: "¿Estás seguro de eliminar la publicación?",
+      //type: 'warning',
       showCancelButton: true,  
-      confirmButtonText: 'Yes, delete it!',
-      confirmButtonColor: '#009E66',
-      cancelButtonText: 'No, cancel!',
+      confirmButtonText: 'Sí, confirmar',
+      confirmButtonColor: '#35CD97',
+      cancelButtonText: 'No, cancelar',
       cancelButtonColor: '#AEAEAE',
       reverseButtons: true
     })
     .then((result) => {
       if (result.value) {
-        swalWithBootstrapButtons(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        // swalWithBootstrapButtons(
+        //   '¡Borrado!',
+        //   'Tu publicación ha sido borrada',
+        // )
         deletePost(postClassName[0], postData.uid);
         postContentElement.style.display = 'none';
       } else if (
         // Read more about handling dismissals
         result.dismiss === swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
+      ); //{
+      //   swalWithBootstrapButtons(
+      //     'Cancelado',
+      //   )
+      // }
     })
     /*
     const confirmDelete = confirm('¿Estás seguro de eliminar la publicación?');
