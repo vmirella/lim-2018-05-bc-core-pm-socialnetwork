@@ -76,6 +76,7 @@ window.createPost = (postData) => {
 //Esta funcion permite editar posts
 window.editPost = (postId, postData) => {
 	const updates = {};
+	//postData.id = postId;
 	updates['/posts/' + postId] = postData;
 	firebase.database().ref('/posts/' + postId).update(postData);
 	//return firebase.database().ref().update(updates);
