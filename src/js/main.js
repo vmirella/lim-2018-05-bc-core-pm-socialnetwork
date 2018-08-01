@@ -228,7 +228,15 @@ btnAddPost.addEventListener('click', () => {
   idPost = createPost(postData);
   //slideUp() funcion de jquery - oculta div
   $('#dataPost').slideUp('slow');
-  alert('Se creó con éxito')
+  swal({
+    type: 'success',
+    confirmButtonColor: '#009E66',
+    title: 'Se creó con éxito',
+    showConfirmButton: false,
+    
+    timer: 6000
+  })
+  //alert('Se creó con éxito')
   location.reload();
 })
 let postClassName = null;
@@ -257,6 +265,45 @@ showPostElement.addEventListener('click', (event) => {
   if (event.target.nodeName === "BUTTON" && event.target.id == 'delete') {
 
     const postContentElement = document.getElementsByClassName(postClassName[0])[0];
+//modificar ingles
+    const swalWithBootstrapButtons = swal.mixin({
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false,
+    })
+
+    swal({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,  
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#009E66',
+      cancelButtonText: 'No, cancel!',
+      cancelButtonColor: '#AEAEAE',
+      reverseButtons: true
+    })
+    .then((result) => {
+      if (result.value) {
+        swalWithBootstrapButtons(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        deletePost(postClassName[0], postData.uid);
+        postContentElement.style.display = 'none';
+      } else if (
+        // Read more about handling dismissals
+        result.dismiss === swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    })
+    /*
     const confirmDelete = confirm('¿Estás seguro de eliminar la publicación?');
     if (confirmDelete == true) {
       deletePost(postClassName[0], postData.uid);
@@ -265,7 +312,7 @@ showPostElement.addEventListener('click', (event) => {
     }
     else {
       return;
-    }
+    }*/
     
     
   }
@@ -291,7 +338,15 @@ btnEditPost.addEventListener('click', () => {
   postData.comentary = {};
 
   editPost(postClassName[0], postData);
-  alert('se editó post')
+  swal({
+    type: 'success',
+    confirmButtonColor: '#009E66',
+    title: 'Se editó post',
+    showConfirmButton: false,
+    
+    timer: 00020
+  })
+ // alert('se editó post')
 
   location.reload();
 });
