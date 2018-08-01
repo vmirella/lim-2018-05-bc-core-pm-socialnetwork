@@ -86,7 +86,6 @@ let postData = {
   state: null,
   likes: null,
   comentary: null
-
 };
 
 const postPublic = (listPost) => {
