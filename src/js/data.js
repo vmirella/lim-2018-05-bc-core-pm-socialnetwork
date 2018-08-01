@@ -75,8 +75,8 @@ window.createPost = (postData) => {
 window.editPost = (postId, postData) => {
 	const updates = {};
 	updates['/posts/' + postId] = postData;
-	//firebase.database().ref('/posts/' + postId).update(postData);
-	return firebase.database().ref().update(updates);
+	firebase.database().ref('/posts/' + postId).update(postData);
+	//return firebase.database().ref().update(updates);
 }
 
 //Lee los post para usarlos en el test
